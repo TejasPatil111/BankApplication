@@ -1,0 +1,13 @@
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\bin\Debug\net8.0\Bank.Domain.deps.json
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\bin\Debug\net8.0\Bank.Domain.runtimeconfig.json
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\bin\Debug\net8.0\Bank.Domain.dll
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\bin\Debug\net8.0\Bank.Domain.pdb
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.AssemblyInfoInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.AssemblyInfo.cs
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.csproj.CoreCompileInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.dll
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\refint\Bank.Domain.dll
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.pdb
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.genruntimeconfig.cache
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\ref\Bank.Domain.dll

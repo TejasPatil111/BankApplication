@@ -1,0 +1,11 @@
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\bin\Debug\net8.0\Bank.Identity.deps.json
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\bin\Debug\net8.0\Bank.Identity.dll
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\bin\Debug\net8.0\Bank.Identity.pdb
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.AssemblyInfoInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.AssemblyInfo.cs
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.csproj.CoreCompileInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.dll
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\refint\Bank.Identity.dll
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\Bank.Identity.pdb
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Identity\obj\Debug\net8.0\ref\Bank.Identity.dll
