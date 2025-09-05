@@ -51,7 +51,7 @@ namespace Bank.Infrastructure.Repositories
                 if (CustomId != null)
             {
                 _context.Customers.Remove(CustomId);
-                await _context.SaveChangesAsync(); // Saving Changes
+                await _context.SaveChangesAsync(); // Saving Changes to the database    
             }
         }
             
