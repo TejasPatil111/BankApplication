@@ -9,16 +9,18 @@ namespace Bank.Domain.Entities
 {
     public class Transfer
     {
-        public Guid Id { get; set; }
-        public Guid FromAccountId { get; set; }
-        public Guid ToAccountId { get; set; }
+        public int Id { get; set; }
         public decimal Amount { get; set; }
         public string Currency { get; set; } = "INR";
-        public TransferStatus Status { get; set; }
+        public int Status { get; set; }
         public DateTime InitiatedOnUtc { get; set; }
         public DateTime? CompletedOnUtc { get; set; }
         public string? Refrence { get; set; }
 
-
+        //navigation Proerties
+        public int ToAccountId { get; set; }
+        public int FromAccountId { get; set; }
+        public Account? FromAccount { get; set; }
+        public Account? ToAccount { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Bank.Domain.Entities
 {
     public class Customer
     {
-        public Guid id { get; set; }
+        public int id { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public bool KeyStatus { get; set; }

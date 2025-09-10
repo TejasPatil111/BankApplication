@@ -24,9 +24,11 @@ namespace Bank.Infrastructure.Migrations
 
             modelBuilder.Entity("Bank.Domain.Entities.Account", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AccountNo")
                         .IsRequired()
@@ -47,8 +49,8 @@ namespace Bank.Infrastructure.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OpendOnUtc")
                         .HasColumnType("datetime2");
@@ -69,9 +71,11 @@ namespace Bank.Infrastructure.Migrations
 
             modelBuilder.Entity("Bank.Domain.Entities.Customer", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("datetime2");
@@ -95,8 +99,8 @@ namespace Bank.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            id = new Guid("a3c3b282-6b6e-4a85-8a3e-74e58a6a9b01"),
-                            CreatedOnUtc = new DateTime(2025, 9, 1, 14, 8, 45, 696, DateTimeKind.Utc).AddTicks(7433),
+                            id = 1,
+                            CreatedOnUtc = new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5371),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -104,8 +108,8 @@ namespace Bank.Infrastructure.Migrations
                         },
                         new
                         {
-                            id = new Guid("b4d4c393-7c7f-5b96-9b4f-85f69b7b0c12"),
-                            CreatedOnUtc = new DateTime(2025, 9, 1, 14, 8, 45, 696, DateTimeKind.Utc).AddTicks(7440),
+                            id = 2,
+                            CreatedOnUtc = new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5375),
                             Email = "om@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",
@@ -115,9 +119,11 @@ namespace Bank.Infrastructure.Migrations
 
             modelBuilder.Entity("Bank.Domain.Entities.LedgerEntry", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
@@ -144,9 +150,11 @@ namespace Bank.Infrastructure.Migrations
 
             modelBuilder.Entity("Bank.Domain.Entities.Transfer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -158,8 +166,8 @@ namespace Bank.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FromAccountId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("FromAccountId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("InitiatedOnUtc")
                         .HasColumnType("datetime2");
@@ -170,12 +178,35 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ToAccountId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ToAccountId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FromAccountId");
+
+                    b.HasIndex("ToAccountId");
+
                     b.ToTable("Transfers");
+                });
+
+            modelBuilder.Entity("Bank.Domain.Entities.Transfer", b =>
+                {
+                    b.HasOne("Bank.Domain.Entities.Account", "FromAccount")
+                        .WithMany()
+                        .HasForeignKey("FromAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Bank.Domain.Entities.Account", "ToAccount")
+                        .WithMany()
+                        .HasForeignKey("ToAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FromAccount");
+
+                    b.Navigation("ToAccount");
                 });
 #pragma warning restore 612, 618
         }

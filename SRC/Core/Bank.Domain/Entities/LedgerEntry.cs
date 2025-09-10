@@ -10,7 +10,7 @@ namespace Bank.Domain.Entities
 {
     public class LedgerEntry
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public Guid AccountId { get; set; }
         public decimal Amount { get; set; }
         public TransactionDirection Direction { get; set; }

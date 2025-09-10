@@ -9,9 +9,9 @@ namespace Bank.Domain.Entities
 {
     public class Money
     {
-        public Guid Id { get; set; }
-        public Guid FromAccountId { get; set; }
-        public Guid ToAccountId { get; set; }
+        public int Id { get; set; }
+        public int FromAccountId { get; set; }
+        public int ToAccountId { get; set; }
         public decimal Amount { get; set; }
         public string Currency { get; set; } = "INR";
         public TransferStatus Status { get; set; }

@@ -6,6 +6,7 @@ C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Do
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.AssemblyInfoInputs.cache
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.AssemblyInfo.cs
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.csproj.CoreCompileInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.sourcelink.json
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.dll
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\refint\Bank.Domain.dll
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.pdb

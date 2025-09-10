@@ -16,7 +16,7 @@ namespace Bank.Infrastructure
         {
             builder.HasData(
                 new Customer { 
-                id = Guid.Parse("a3c3b282-6b6e-4a85-8a3e-74e58a6a9b01"),
+                id = 1,
                 Name="Tejas",
                 Email="tejas@gmail.com",
                 KeyStatus=true,
@@ -25,7 +25,7 @@ namespace Bank.Infrastructure
                 },
                 new Customer
                 {
-                    id = Guid.Parse("b4d4c393-7c7f-5b96-9b4f-85f69b7b0c12"),
+                    id = 2,
                     Name = "John Doe",
                     Email = "om@gmail.com",
                     KeyStatus =true,
