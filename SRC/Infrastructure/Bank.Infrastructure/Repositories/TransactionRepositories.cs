@@ -7,6 +7,8 @@ using Bank.Application.Features.Transfers.Dto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Identity.Client;
 
 namespace Bank.Infrastructure.Repositories
 {
@@ -34,17 +36,9 @@ namespace Bank.Infrastructure.Repositories
             };
             _context.Transfers.Add(transfer);
             await _context.SaveChangesAsync();
-            dto.Id = transfer.Id;
+            //dto.Id = transfer.Id;
             return dto;
         }
-
-
-
-
-
-
-
-        
 
         public async Task<bool> DeleteAccAsync(int id)
         {
@@ -64,7 +58,7 @@ namespace Bank.Infrastructure.Repositories
 
         public async Task<IEnumerable<Transfer>> GetAllAsync()
         {
-            var Alltransfers = await _context.Transfers.ToListAsync();
+            var Alltransfers = await _context.Transfers.Include(a => a.FromAccount).Include(a => a.ToAccount).ToListAsync();
             return Alltransfers;
 
         }
@@ -80,9 +74,26 @@ namespace Bank.Infrastructure.Repositories
             return transactionId;
         }
 
-        public Task<Transfer> UpdateAsync(int id)
+        public async Task<CreateTransferDto> UpdateAsync( CreateTransferDto dto)
         {
-            throw new NotImplementedException();
+            var trans = await _context.Transfers.FindAsync(dto.Id);
+            if (trans == null)
+            {
+                throw new KeyNotFoundException("id Not Found:");
+            }
+            trans.Amount = dto.Amount;
+            trans.Currency = dto.Currency;
+            trans.Status = dto.Status;
+            trans.InitiatedOnUtc = DateTime.UtcNow;
+            trans.CompletedOnUtc = DateTime.UtcNow;
+            trans.Refrence = dto.Refrence;
+            trans.ToAccountId = dto.ToAccountId;
+            trans.FromAccountId = dto.FromAccountId;
+
+            await _context.SaveChangesAsync();
+            return dto;
+
         }
+
     }
 }

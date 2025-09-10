@@ -18,8 +18,8 @@ namespace Bank.Domain.Entities
         public string? Refrence { get; set; }
 
         //navigation Proerties
-        public int ToAccountId { get; set; }
         public int FromAccountId { get; set; }
+        public int ToAccountId { get; set; }
         public Account? FromAccount { get; set; }
         public Account? ToAccount { get; set; }
     }

@@ -35,6 +35,35 @@ namespace Bank.API.Controllers
             return Ok(result);
 
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var transfer = await _repo.GetByIdAsync(id);
+            if (transfer == null)
+            {
+                return NotFound("Id Not Found ");
+            }
+            return Ok(transfer);
+        }
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateTransfer(int id, [FromBody] CreateTransferDto dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest();
+            }
+
+            var update = await _mediator.Send(new CreateTransferCommand(dto));
+            return Ok(update);
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteTransfer(int id)
+        {
+            await _repo.DeleteAccAsync(id);
+            return Ok();
+        }
+
+
 
     }
 }
