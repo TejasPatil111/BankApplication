@@ -17,7 +17,7 @@ namespace Bank.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCustomer([FromQuery] Guid? id, [FromQuery] string? name)
+        public async Task<IActionResult> GetCustomer([FromQuery] int? id, [FromQuery] string? name)
         {
             try
             {
@@ -51,14 +51,15 @@ namespace Bank.API.Controllers
             return CreatedAtAction(nameof(GetCustomer), new { id = customer.id }, customer);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(Guid id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
             await _customerRepository.Delete(id);
             return NoContent();
         }
 
 
-        
+
+
 
     }
 }

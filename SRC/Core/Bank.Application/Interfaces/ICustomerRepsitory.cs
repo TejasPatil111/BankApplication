@@ -9,10 +9,10 @@ namespace Bank.Application.Interfaces
 {
     public interface ICustomerRepsitory
     {
-        Task<IEnumerable<Customer>> GetCustomersAsync(Guid? id = null, string? name = null);
+        Task<IEnumerable<Customer>> GetCustomersAsync(int? id = null, string? name = null);
         Task<Customer> UpdateCustomer(Customer customer);
         Task AddAsync(Customer customer);
-        Task Delete(Guid id);
+        Task Delete(int id);
 
     }
 }

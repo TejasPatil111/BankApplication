@@ -19,7 +19,9 @@ namespace Bank.Infrastructure.DependancyInjection
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-            services .AddScoped<ICustomerRepsitory, CustomerRepositories>();
+            services.AddScoped<ICustomerRepsitory, CustomerRepositories>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepositories>();
             return services;
         }
     }

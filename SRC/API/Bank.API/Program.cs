@@ -1,3 +1,4 @@
+using Bank.Application.Profiles;
 using Bank.Infrastructure;
 using Bank.Infrastructure.DependancyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,9 @@ namespace Bank.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Automapper Configuration Service
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

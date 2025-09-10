@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Bank.Domain\Bank.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Transfers\Query\" />
+  </ItemGroup>
+
 </Project>

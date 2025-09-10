@@ -10,6 +10,7 @@ C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\De
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Infrastructure.AssemblyInfo.cs
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Infrastructure.sourcelink.json
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Inf.EBD0854A.Up2Date
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\Bank.Infrastructure.dll
 C:\Users\user\source\Practise\Bank\SRC\Infrastructure\Bank.Infrastructure\obj\Debug\net8.0\refint\Bank.Infrastructure.dll

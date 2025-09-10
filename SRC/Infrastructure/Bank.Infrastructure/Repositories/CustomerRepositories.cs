@@ -43,7 +43,7 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(int id)
         {
             var CustomId = await _context.Customers.FindAsync(id);
             
@@ -54,12 +54,8 @@ namespace Bank.Infrastructure.Repositories
                 await _context.SaveChangesAsync(); // Saving Changes to the database    
             }
         }
-            
 
-
-        
-
-        public async Task<IEnumerable<Customer>> GetCustomersAsync(Guid? id = null, string? name = null)
+        public async Task<IEnumerable<Customer>> GetCustomersAsync(int? id = null, string? name = null)
         {
             try
             {

@@ -9,6 +9,10 @@ namespace Bank.Application.Interfaces
 {
     public interface IAccountRepository
     {
-        Task<Account> GetAllAcount();
+        Task<IEnumerable<Account>> GetAllAsync();
+        Task<Account?> GetByIdAsync(int id);
+        Task<Account> AddAsync(Account account);
+        Task<Account> UpdateAsync(Account account);
+        Task<bool> DeleteAsync(int id);
     }
 }

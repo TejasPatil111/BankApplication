@@ -8,6 +8,7 @@ C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persis
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persistance.AssemblyInfoInputs.cache
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persistance.AssemblyInfo.cs
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persistance.sourcelink.json
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Per.35B36268.Up2Date
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\Bank.Persistance.dll
 C:\Users\user\source\Practise\Bank\Bank.Persistance\obj\Debug\net8.0\refint\Bank.Persistance.dll

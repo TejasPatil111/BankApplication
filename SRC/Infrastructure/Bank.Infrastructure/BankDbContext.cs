@@ -27,11 +27,26 @@ namespace Bank.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             // Apply all IEntityTypeConfiguration classes from assembly
+            modelBuilder.Entity<Transfer>()
+                .HasOne(t => t.FromAccount)
+                .WithMany()
+                .HasForeignKey(t => t.FromAccountId)
+                .OnDelete(DeleteBehavior.Restrict);  // or NoAction
+
+            modelBuilder.Entity<Transfer>()
+                .HasOne(t => t.ToAccount)
+                .WithMany()
+                .HasForeignKey(t => t.ToAccountId)
+                .OnDelete(DeleteBehavior.Restrict);  // or NoAction
+
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BankDbContext).Assembly);
 
 
 
         }
+        
+        
 
 
 
