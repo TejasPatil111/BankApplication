@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Bank.Infrastructure.Repositories
 {
-    internal class LeddgerRepository
+    public class LeddgerRepository  
     {
+        private readonly BankDbContext _context;
+
+        public LeddgerRepository(BankDbContext context)
+
+        {
+            _context = context;
+        }
+
     }
 }
