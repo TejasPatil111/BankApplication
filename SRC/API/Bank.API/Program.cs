@@ -1,7 +1,11 @@
+using AutoMapper;
 using Bank.Application.Profiles;
 using Bank.Infrastructure;
 using Bank.Infrastructure.DependancyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Bank.Application.Features.Transfers.Handlers;
+
 
 namespace Bank.API
 {
@@ -11,10 +15,12 @@ namespace Bank.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Automapper Configuration Service
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
-            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
             // Add services to the container.
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(CreateTransferHandler).Assembly);
+            });
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
