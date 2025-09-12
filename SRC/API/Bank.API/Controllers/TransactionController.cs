@@ -62,8 +62,12 @@ namespace Bank.API.Controllers
             await _repo.DeleteAccAsync(id);
             return Ok();
         }
-
-
+        [HttpPost("CreateTransaction")]
+        public async Task<IActionResult> AddTransfer([FromBody] CreateTransferDto dto)
+        {
+            var result = await _repo.AddAccAsync(dto);
+            return Ok(result);
+        }
 
     }
 }

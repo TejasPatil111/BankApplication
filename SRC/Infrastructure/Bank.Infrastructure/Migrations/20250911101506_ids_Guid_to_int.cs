@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bank.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class IdChangeGuidToInt : Migration
+    public partial class ids_Guid_to_int : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,7 +57,7 @@ namespace Bank.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Direction = table.Column<int>(type: "int", nullable: false),
                     CorrelationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -67,6 +67,12 @@ namespace Bank.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LedgerEntiries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LedgerEntiries_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,8 +87,8 @@ namespace Bank.Infrastructure.Migrations
                     InitiatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompletedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Refrence = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ToAccountId = table.Column<int>(type: "int", nullable: false),
-                    FromAccountId = table.Column<int>(type: "int", nullable: false)
+                    FromAccountId = table.Column<int>(type: "int", nullable: false),
+                    ToAccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,9 +112,14 @@ namespace Bank.Infrastructure.Migrations
                 columns: new[] { "id", "CreatedOnUtc", "Email", "KeyStatus", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5371), "tejas@gmail.com", true, "Tejas", 0 },
-                    { 2, new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5375), "om@gmail.com", true, "John Doe", 0 }
+                    { 1, new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9234), "tejas@gmail.com", true, "Tejas", 0 },
+                    { 2, new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9241), "om@gmail.com", true, "John Doe", 0 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LedgerEntiries_AccountId",
+                table: "LedgerEntiries",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transfers_FromAccountId",

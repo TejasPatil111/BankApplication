@@ -22,6 +22,8 @@ namespace Bank.Infrastructure.DependancyInjection
             services.AddScoped<ICustomerRepsitory, CustomerRepositories>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepositories>();
+            services.AddScoped<ILedgerRepository, LeddgerRepository>();
+            services.AddScoped<IMoneyRepository, MoneyRepository>();
             return services;
         }
     }

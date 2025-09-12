@@ -8,7 +8,6 @@ using MediatR;
 
 namespace Bank.Application.Features.Transfers.Command
 {
-   
     public record CreateTransferCommand(CreateTransferDto dto): IRequest<CreateTransferDto>;
     
 }

@@ -11,11 +11,14 @@ namespace Bank.Domain.Entities
     public class LedgerEntry
     {
         public int Id { get; set; }
-        public Guid AccountId { get; set; }
+        public int AccountId { get; set; }
         public decimal Amount { get; set; }
         public TransactionDirection Direction { get; set; }
         public string? CorrelationId { get; set; }
         public DateTime OccuredOnUtc { get; set; }
         public string? Narrative { get; set; }
+
+        //Navigation Properties
+        public Account Account { get; set; }
     }
 }

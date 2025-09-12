@@ -40,7 +40,7 @@ namespace Bank.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bank API V1");
                     c.RoutePrefix = string.Empty; // Swagger at root (http://localhost:7138/)
                 });
             }

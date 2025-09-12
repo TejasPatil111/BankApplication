@@ -15,6 +15,8 @@
         
             Task<bool> DeleteAccAsync(int id);
             Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto);
-            Task<CreateTransferDto> AddAccAsync(CreateTransferDto dto);
-        }
+        Task<CreateTransferDto> AddAccAsync(CreateTransferDto dto);
+        //createtranferCommandHandler
+        Task AddAccAsync(Transfer transfer);
+    }
     }

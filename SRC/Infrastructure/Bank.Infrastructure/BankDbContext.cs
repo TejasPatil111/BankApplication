@@ -11,6 +11,7 @@ namespace Bank.Infrastructure
         public DbSet<Customer> Customers { get; set; }
         public DbSet<LedgerEntry> LedgerEntiries { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<Money> Money { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>

@@ -40,6 +40,11 @@ namespace Bank.Infrastructure.Repositories
             return dto;
         }
 
+        public Task AddAccAsync(Transfer transfer)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> DeleteAccAsync(int id)
         {
             var Transaction = await _context.Transfers.FindAsync(id);

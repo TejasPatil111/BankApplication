@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    [Migration("20250909062435_IdChangeGuidToInt")]
-    partial class IdChangeGuidToInt
+    [Migration("20250911101506_ids_Guid_to_int")]
+    partial class ids_Guid_to_int
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,7 +103,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5371),
+                            CreatedOnUtc = new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9234),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -112,7 +112,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 9, 9, 6, 24, 34, 285, DateTimeKind.Utc).AddTicks(5375),
+                            CreatedOnUtc = new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9241),
                             Email = "om@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",
@@ -128,8 +128,8 @@ namespace Bank.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -147,6 +147,8 @@ namespace Bank.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.ToTable("LedgerEntiries");
                 });
@@ -191,6 +193,17 @@ namespace Bank.Infrastructure.Migrations
                     b.HasIndex("ToAccountId");
 
                     b.ToTable("Transfers");
+                });
+
+            modelBuilder.Entity("Bank.Domain.Entities.LedgerEntry", b =>
+                {
+                    b.HasOne("Bank.Domain.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("Bank.Domain.Entities.Transfer", b =>

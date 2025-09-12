@@ -148,6 +148,138 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Bank.API.Controllers.LedgerController",
+    "Method": "GetAll",
+    "RelativePath": "api/Ledger",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.LedgerController",
+    "Method": "Create",
+    "RelativePath": "api/Ledger",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Bank.Application.Features.Ledger.Dto.LedgerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.LedgerController",
+    "Method": "GetById",
+    "RelativePath": "api/Ledger/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.LedgerController",
+    "Method": "Delete",
+    "RelativePath": "api/Ledger/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.MoneyController",
+    "Method": "GetAll",
+    "RelativePath": "api/Money",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.MoneyController",
+    "Method": "Create",
+    "RelativePath": "api/Money",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "money",
+        "Type": "Bank.Domain.Entities.Money",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.MoneyController",
+    "Method": "Delete",
+    "RelativePath": "api/Money",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.MoneyController",
+    "Method": "Update",
+    "RelativePath": "api/Money",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "money",
+        "Type": "Bank.Domain.Entities.Money",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.MoneyController",
+    "Method": "GetById",
+    "RelativePath": "api/Money/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Bank.API.Controllers.TransactionController",
     "Method": "GetAll",
     "RelativePath": "api/Transaction",
@@ -221,6 +353,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.TransactionController",
+    "Method": "AddTransfer",
+    "RelativePath": "api/Transaction/CreateTransaction",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Bank.Application.Features.Transfers.Dto.CreateTransferDto",
         "IsRequired": true
       }
     ],
