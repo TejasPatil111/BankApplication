@@ -1,4 +1,6 @@
-﻿using Bank.Application.Interfaces;
+﻿using Bank.Application.Features.Customer.Command;
+using Bank.Application.Features.Customer.Queries;
+using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -11,49 +13,51 @@ namespace Bank.API.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerRepsitory _customerRepository;
-        public CustomerController(ICustomerRepsitory customerRepository)
+        private readonly IMediator _mediator;
+
+        public CustomerController(ICustomerRepsitory customerRepository, IMediator mediator)
         {
             _customerRepository = customerRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCustomer([FromQuery] int? id, [FromQuery] string? name)
         {
-            try
-            {
-                var customers = await _customerRepository.GetCustomersAsync(id, name);
-
-                if (customers == null || !customers.Any())
-                {
-                    return NotFound(new { message = "No customers found matching the criteria." });
-                }
-
-                return Ok(customers);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { message = "An error occurred while retrieving customers.", details = ex.Message });
-            }
+            var customers = await _mediator.Send(new GetAllCustomerQuery());
+            return Ok(customers);
         }
-        [HttpPut]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCustomerById(int id)
+        {
+            var customer = await _mediator.Send(new GetCustomerByIdQuery(id));
+            if (customer == null)
+            {
+                return NotFound("Id Not Found ");
+            }
+            return Ok(customer);
+        }
+
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer)
         {
-            var updateCustomer = await _customerRepository.UpdateCustomer(customer);
+            var updateCustomer = await _customerRepository.UpdateAsync(customer);
             return Ok(updateCustomer);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
+        public async Task<IActionResult> AddCustomer(CreateCustomerCommand Command)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _customerRepository.AddAsync(customer);
-            return CreatedAtAction(nameof(GetCustomer), new { id = customer.id }, customer);
+            var id = await _mediator.Send(Command);
+            return Ok(new { CustomerId = id });
         }
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            await _customerRepository.Delete(id);
+            await _customerRepository.DeleteAsync(id);
             return NoContent();
         }
 

@@ -165,3 +165,8 @@ C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\refint\Bank
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.pdb
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.genruntimeconfig.cache
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\ref\Bank.API.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bank.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ids_Guid_to_int : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,6 +42,7 @@ namespace Bank.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KeyStatus = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -49,6 +50,26 @@ namespace Bank.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Money",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromAccountId = table.Column<int>(type: "int", nullable: false),
+                    ToAccountId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    InitiatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompletedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Refrences = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Money", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,11 +130,11 @@ namespace Bank.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "id", "CreatedOnUtc", "Email", "KeyStatus", "Name", "Status" },
+                columns: new[] { "id", "CreatedOnUtc", "Email", "KeyStatus", "Name", "Password", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9234), "tejas@gmail.com", true, "Tejas", 0 },
-                    { 2, new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9241), "om@gmail.com", true, "John Doe", 0 }
+                    { 1, new DateTime(2025, 9, 15, 13, 53, 35, 686, DateTimeKind.Utc).AddTicks(9922), "tejas@gmail.com", true, "Tejas", null, 0 },
+                    { 2, new DateTime(2025, 9, 15, 13, 53, 35, 686, DateTimeKind.Utc).AddTicks(9928), "om@gmail.com", true, "John Doe", null, 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -140,6 +161,9 @@ namespace Bank.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "LedgerEntiries");
+
+            migrationBuilder.DropTable(
+                name: "Money");
 
             migrationBuilder.DropTable(
                 name: "Transfers");

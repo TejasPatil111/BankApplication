@@ -9,6 +9,6 @@ using MediatR;
 
 namespace Bank.Application.Features.Ledger.Cammand
 {
-    public record CreateLedgerCommand(LedgerDto dto): IRequest<LedgerDto>;
+    public record CreateLedgerCommand(LedgerDto dto): IRequest<LedgerDto>;  
 
 }

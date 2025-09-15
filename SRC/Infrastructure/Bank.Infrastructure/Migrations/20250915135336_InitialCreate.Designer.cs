@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    [Migration("20250911123315_Money_Entity")]
-    partial class Money_Entity
+    [Migration("20250915135336_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,9 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -103,7 +106,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 12, 33, 14, 760, DateTimeKind.Utc).AddTicks(9991),
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 53, 35, 686, DateTimeKind.Utc).AddTicks(9922),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -112,7 +115,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 12, 33, 14, 760, DateTimeKind.Utc).AddTicks(9996),
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 53, 35, 686, DateTimeKind.Utc).AddTicks(9928),
                             Email = "om@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",

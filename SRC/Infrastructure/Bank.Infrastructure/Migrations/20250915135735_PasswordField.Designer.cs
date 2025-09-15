@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    [Migration("20250911101506_ids_Guid_to_int")]
-    partial class ids_Guid_to_int
+    [Migration("20250915135735_PasswordField")]
+    partial class PasswordField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,9 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -103,19 +106,21 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9234),
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 57, 34, 757, DateTimeKind.Utc).AddTicks(2946),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
+                            Password = "tejas@123",
                             Status = 0
                         },
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 10, 15, 5, 277, DateTimeKind.Utc).AddTicks(9241),
-                            Email = "om@gmail.com",
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 57, 34, 757, DateTimeKind.Utc).AddTicks(2951),
+                            Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",
+                            Password = "om@123",
                             Status = 0
                         });
                 });
@@ -151,6 +156,44 @@ namespace Bank.Infrastructure.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("LedgerEntiries");
+                });
+
+            modelBuilder.Entity("Bank.Domain.Entities.Money", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CompletedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FromAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InitiatedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Refrences")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Money");
                 });
 
             modelBuilder.Entity("Bank.Domain.Entities.Transfer", b =>

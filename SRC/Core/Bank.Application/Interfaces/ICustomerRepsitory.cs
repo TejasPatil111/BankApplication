@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank.Application.Features.Customer.Dto;
 using Bank.Domain.Entities;
 
 namespace Bank.Application.Interfaces
 {
     public interface ICustomerRepsitory
     {
-        Task<IEnumerable<Customer>> GetCustomersAsync(int? id = null, string? name = null);
-        Task<Customer> UpdateCustomer(Customer customer);
+        Task<Customer> GetByIdAsync(int id);
+        Task<List<Customer>> GetAllAsync();
+        Task <Customer>UpdateAsync(Customer customer);
+        Task DeleteAsync(int id);
         Task AddAsync(Customer customer);
-        Task Delete(int id);
 
     }
 }

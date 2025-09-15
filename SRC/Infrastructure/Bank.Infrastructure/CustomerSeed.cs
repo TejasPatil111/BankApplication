@@ -19,7 +19,8 @@ namespace Bank.Infrastructure
                 id = 1,
                 Name="Tejas",
                 Email="tejas@gmail.com",
-                KeyStatus=true,
+                Password="tejas@123",
+                    KeyStatus =true,
                 Status=0,
                 CreatedOnUtc=DateTime.UtcNow
                 },
@@ -27,7 +28,8 @@ namespace Bank.Infrastructure
                 {
                     id = 2,
                     Name = "John Doe",
-                    Email = "om@gmail.com",
+                    Email = "om123@gmail.com",
+                    Password="om@123",
                     KeyStatus =true,
                     Status = 0,
                     CreatedOnUtc = DateTime.UtcNow

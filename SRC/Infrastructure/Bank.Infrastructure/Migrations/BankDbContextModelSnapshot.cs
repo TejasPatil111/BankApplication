@@ -89,6 +89,9 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -100,19 +103,21 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 12, 33, 14, 760, DateTimeKind.Utc).AddTicks(9991),
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 57, 34, 757, DateTimeKind.Utc).AddTicks(2946),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
+                            Password = "tejas@123",
                             Status = 0
                         },
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 9, 11, 12, 33, 14, 760, DateTimeKind.Utc).AddTicks(9996),
-                            Email = "om@gmail.com",
+                            CreatedOnUtc = new DateTime(2025, 9, 15, 13, 57, 34, 757, DateTimeKind.Utc).AddTicks(2951),
+                            Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",
+                            Password = "om@123",
                             Status = 0
                         });
                 });

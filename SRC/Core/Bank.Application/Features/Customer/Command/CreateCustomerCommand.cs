@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank.Application.Features.Customer.Dto;
+using MediatR;
+using static Bank.Domain.Enums;
 
-namespace Bank.Application.Features.Customer
+namespace Bank.Application.Features.Customer.Command
 {
-    internal class Class1
+    public class CreateCustomerCommand : IRequest<int>
     {
-    }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public bool KeyStatus { get; set; }
+        public CustomerStaus Status { get; set; }
+        public DateTime CreatedOnUtc { get; set; }
+    };
+
 }

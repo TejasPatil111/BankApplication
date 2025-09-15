@@ -170,6 +170,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[8.1.4, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [
@@ -433,6 +437,14 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.19, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             },
             "Serilog": {
               "target": "Package",

@@ -130,6 +130,68 @@
         }
       }
     },
+    "/api/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/Register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Customer": {
       "get": {
         "tags": [
@@ -158,6 +220,81 @@
           }
         }
       },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Customer/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Customer/Update": {
       "put": {
         "tags": [
           "Customer"
@@ -181,58 +318,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Customer"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Customer"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Customer"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Customer"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Customer/{id}": {
-      "delete": {
-        "tags": [
-          "Customer"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -660,6 +745,30 @@
         "type": "integer",
         "format": "int32"
       },
+      "CreateCustomerCommand": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "keyStatus": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CustomerStaus"
+          },
+          "createdOnUtc": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateTransferDto": {
         "type": "object",
         "properties": {
@@ -718,6 +827,10 @@
             "type": "string",
             "nullable": true
           },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
           "keyStatus": {
             "type": "boolean"
           },
@@ -763,6 +876,20 @@
             "format": "date-time"
           },
           "narrative": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
             "type": "string",
             "nullable": true
           }

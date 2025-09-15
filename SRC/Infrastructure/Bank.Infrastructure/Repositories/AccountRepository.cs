@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank.Application.Exceptions;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -90,7 +91,7 @@ namespace Bank.Infrastructure.Repositories
 
                 if (AccountId == null)
                 {
-                    throw new KeyNotFoundException($"Account with Id '{id}' not found.");
+                    throw new AccountNotFoundException(id);
                 }
                 return AccountId;
 
