@@ -65,10 +65,24 @@ namespace Bank.API
             builder.Services.AddDbContext<BankDbContext>(options =>
             
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
+
 
 
             builder.Services.AddInfrastructureServices(builder.Configuration);
+
+
+
+            //  Add CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin() // Angular dev server
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+            });
 
             var app = builder.Build();
             //app.MapGet("/", () => Results.Redirect("/swagger"));
@@ -83,6 +97,8 @@ namespace Bank.API
                     c.RoutePrefix = string.Empty; // Swagger at root (http://localhost:7138/)
                 });
             }
+
+            app.UseCors("AllowAngularApp");
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

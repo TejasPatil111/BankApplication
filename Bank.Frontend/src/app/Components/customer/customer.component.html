@@ -1,0 +1,32 @@
+
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary p-sm-2">+Add Customer</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
+<ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">KeyStatus</th>
+                <th scope="col">Date</th>
+                <th sccope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let c of customers">
+                <td scope="row"> {{c.name}} </td>
+                <td scope="row"> {{c.email}} </td>
+                <td scope="row"> {{c.keyStatus}} </td>
+                <td scope="row"> {{c.createdOnUtc | date:'dd/MM/yyyy HH:mm'}} </td>
+                <td><button (click)="updateCustomer(c)" class="btn btn-primary">Update</button></td>
+             <td ><button (click)="deleteCustomer(c.id)" class="btn btn-danger">Delete</button></td>
+            </tr>
+        </tbody>
+
+    </table>
+    
+</ul>
