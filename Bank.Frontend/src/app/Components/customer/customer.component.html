@@ -1,32 +1,67 @@
-
 <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-primary p-sm-2">+Add Customer</button>
+    <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal" data-bs-target="#customerModal" (click)="openAddModal()">+Add
+        Customer</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
-<ul>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">KeyStatus</th>
-                <th scope="col">Date</th>
-                <th sccope="col">Update</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor ="let c of customers">
-                <td scope="row"> {{c.name}} </td>
-                <td scope="row"> {{c.email}} </td>
-                <td scope="row"> {{c.keyStatus}} </td>
-                <td scope="row"> {{c.createdOnUtc | date:'dd/MM/yyyy HH:mm'}} </td>
-                <td><button (click)="updateCustomer(c)" class="btn btn-primary">Update</button></td>
-             <td ><button (click)="deleteCustomer(c.id)" class="btn btn-danger">Delete</button></td>
-            </tr>
-        </tbody>
 
-    </table>
-    
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">KeyStatus</th>
+            <th scope="col">Date</th>
+            <th sccope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of customer">
+            <td scope="row"> {{c?.name}} </td>
+            <td scope="row"> {{c?.email}} </td>
+            <td scope="row"> {{c?.keyStatus}} </td>
+            <td scope="row"> {{c?.createdOnUtc | date:'dd/MM/yyyy HH:mm'}} </td>
+            <td>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal" (click)="editCustomer(c)">Update</button>
+            </td>
+            <td><button (click)="deleteCustomer(c.id)" class="btn btn-danger">Delete</button></td>
+        </tr>
+    </tbody>
+
+</table>
+
+
+<div class="modal " id="customerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ isEditMode? 'Update Customer' : 'Add Customer'}}</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label>Name</label>
+                            <input type="text" [(ngModel)]="newCustomer.name" name="name" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" [(ngModel)]="newCustomer.email" name="email" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" [(ngModel)]="newCustomer.password" name="password" class="form-control" />
+                        </div>       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button"  class="btn btn-primary" (click)="saveCustomer()" data-bs-dismiss="modal">{{ isEditMode? 'Update' : 'Save' }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

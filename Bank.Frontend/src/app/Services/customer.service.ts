@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomerDto } from './CustomerDto';
 
-const API_URL = 'https://localhost:7210/api'; 
+const API_URL = 'https://localhost:7210/api/Customer'; 
 @Injectable({
   providedIn: 'root'
 })
@@ -13,20 +13,19 @@ constructor(private http:HttpClient){}
 
 //service for get Customer
 getAllCustomer(): Observable<any>{
-  return this.http.get(`${API_URL}/Customer`);
+  return this.http.get(`${API_URL}`);
 }
 
 create(fromData:CustomerDto): Observable<CustomerDto>{
-return  this.http.post<CustomerDto>(`${API_URL}/Customer`,fromData);
+return  this.http.post<CustomerDto>(`${API_URL}`,fromData);
 }
 
-update(id:number,fromData : CustomerDto): Observable<void>{
-
-  return this.http.put<void>(`${API_URL}/${id}`,fromData)
+update(id:number,fromData: CustomerDto): Observable<void>{
+  return this.http.put<void>(`${API_URL}/Update/${id}`,fromData);
 }
 
 delete(id : number):Observable<void>{
- return  this.http.delete<void>( `${API_URL}/${id}`);
+ return this.http.delete<void>( `${API_URL}/${id}`);
 }
 
 }

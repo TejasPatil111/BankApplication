@@ -182,7 +182,7 @@
   {
     "ContainingType": "Bank.API.Controllers.CustomerController",
     "Method": "UpdateCustomer",
-    "RelativePath": "api/Customer/Update",
+    "RelativePath": "api/Customer/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -190,6 +190,11 @@
       {
         "Name": "customer",
         "Type": "Bank.Domain.Entities.Customer",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

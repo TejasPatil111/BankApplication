@@ -9,7 +9,7 @@ namespace Bank.Application.Features.Customer.Dto
 {
     public class CustomerDto
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public bool KeyStatus { get; set; }
