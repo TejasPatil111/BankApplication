@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CustomerDto } from './CustomerDto';
+import { CustomerDto } from '../Components/customer/CustomerDto';
 
 const API_URL = 'https://localhost:7210/api/Customer'; 
 @Injectable({

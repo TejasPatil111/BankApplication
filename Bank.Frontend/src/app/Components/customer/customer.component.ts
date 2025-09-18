@@ -2,7 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { CustomerService } from '../../Services/customer.service';
 import { CommonModule } from '@angular/common';
 import { pipe } from 'rxjs';
-import { CustomerDto } from '../../Services/CustomerDto';
+import { CustomerDto } from './CustomerDto';
 import { FormsModule } from '@angular/forms';
 
 @Component({
