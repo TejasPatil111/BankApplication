@@ -39,15 +39,15 @@ namespace Bank.API.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer, int id)
+        public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer,int id)
         {
-            var customerq = await _mediator.Send(new GetCustomerByIdQuery(id));
-            if (customerq == null)
+            var updatedCustomer = await _customerRepository.UpdateAsync(id, customer);
+            if (updatedCustomer == null)
             {
-                return NotFound("Id Not Found ");
+                return NotFound("Id Not Found");
             }
-            var updateCustomer = await _customerRepository.UpdateAsync(customer);
-            return Ok(updateCustomer);
+
+            return Ok(updatedCustomer);
         }
 
 

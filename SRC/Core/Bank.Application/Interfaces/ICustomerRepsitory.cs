@@ -12,7 +12,7 @@ namespace Bank.Application.Interfaces
     {
         Task<Customer> GetByIdAsync(int id);
         Task<List<Customer>> GetAllAsync();
-        Task <Customer>UpdateAsync(Customer customer);
+        Task <Customer>UpdateAsync(int id,Customer customer);
         Task DeleteAsync(int id);
         Task AddAsync(Customer customer);
 

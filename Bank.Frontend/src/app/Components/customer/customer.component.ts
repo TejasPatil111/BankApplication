@@ -64,6 +64,7 @@ export class CustomerComponent implements OnInit {
   saveCustomer() {
     if (this.isEditMode) {
       // update existing customer
+      debugger
       this.CusService.update(this.newCustomer.id, this.newCustomer).subscribe(() => {
         this.loadCustomers();
       });

@@ -25,7 +25,11 @@ namespace Bank.Infrastructure.Repositories
 
         public async Task<List<Customer>> GetAllAsync()
         {
-           return await _context.Customers.ToListAsync();        }
+            return await _context.Customers.ToListAsync();
+
+        }
+
+
 
         public async Task<Customer> GetByIdAsync(int id)
         {
@@ -50,11 +54,24 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
-        public async Task<Customer> UpdateAsync(Customer customer)
+        public async Task<Customer> UpdateAsync(int id ,Customer customer)
         {
-            _context.Customers.Update(customer);
+            var existingCustomer = await _context.Customers.FindAsync(id);
+            if (existingCustomer == null)
+            {
+                return null;
+            }
+
+            // Update fields
+            existingCustomer.Name = customer.Name;
+            existingCustomer.Email = customer.Email;
+            existingCustomer.Password = customer.Password;
+            existingCustomer.KeyStatus = customer.KeyStatus;
+            existingCustomer.Status = customer.Status;
+            existingCustomer.CreatedOnUtc = customer.CreatedOnUtc;
+
             await _context.SaveChangesAsync();
-            return customer;
+            return existingCustomer;
         }
 
 

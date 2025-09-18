@@ -24,9 +24,10 @@ namespace Bank.Application.Features.Customer.Handler
             var customers = await _repo.GetAllAsync();
             return customers.Select(c => new CustomerDto
             {
-                //Id = c.id,
+                Id = c.id,
                 Name = c.Name,
                 Email = c.Email,
+                Password=c.Password,
                 KeyStatus = c.KeyStatus,
                 Status = c.Status,
                 CreatedOnUtc = c.CreatedOnUtc

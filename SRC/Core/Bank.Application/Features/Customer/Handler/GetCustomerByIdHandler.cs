@@ -28,7 +28,7 @@ namespace Bank.Application.Features.Customer.Handler
             }
             return new CustomerDto
             {
-                //Id = data.id,
+                Id = data.id,
                 Name = data.Name,
                 Email = data.Email,
                 KeyStatus = data.KeyStatus,

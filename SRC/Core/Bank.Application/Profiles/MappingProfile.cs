@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Bank.Application.Features.Customer.Dto;
 using Bank.Application.Features.Transfers.Dto;
 using Bank.Domain.Entities;
 
@@ -13,7 +14,8 @@ namespace Bank.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<CreateTransferDto, Transfer>().ReverseMap();
+            CreateMap<Transfer, CreateTransferDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
         }
     }
 }
