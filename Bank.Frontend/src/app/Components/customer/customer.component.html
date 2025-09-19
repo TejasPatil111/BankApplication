@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>No</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">KeyStatus</th>
@@ -17,7 +18,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let c of customer">
+        <tr *ngFor="let c of customer let i = index">
+            <td>{{i +1}}</td>
             <td scope="row"> {{c?.name}} </td>
             <td scope="row"> {{c?.email}} </td>
             <td scope="row"> {{c?.keyStatus}} </td>

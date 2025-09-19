@@ -79,6 +79,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Bank.API.Controllers.AccountController",
+    "Method": "GetAccountsWithCustomers",
+    "RelativePath": "api/Account/with-customers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Bank.API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/Login",

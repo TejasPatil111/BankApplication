@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Application.Exceptions;
+using Bank.Application.Features.Account.AccountWithCustomerDto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -124,6 +125,21 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
+        public async Task<IEnumerable<AccountWithCustomerDto>> GetAccountsWithCustomersAsync()
+        {
+            try
+            {
+                var results = await _context.AccountsWithCustomersDto
+                    .FromSqlRaw("EXEC GetAccountsWithCustomers")
+                    .ToListAsync();
+
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error fetching accounts with customers", ex);
+            }
+        }
 
 
 

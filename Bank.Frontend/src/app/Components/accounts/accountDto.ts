@@ -1,5 +1,5 @@
-export interface AccountDto
- {
+export interface  AccountDto {
+
   id: number,
   customerId: number,
   accountNo: string,
@@ -10,4 +10,13 @@ export interface AccountDto
   opendOnUtc: Date,
   closedOnUtc: Date,
   rowVersion: string
+}
+export interface withCustomerDto {
+
+  id: number;
+  accountNo: string,
+  customerId: number,
+  customerName: string,
+  customerEmail: string
+
 }

@@ -73,6 +73,21 @@ namespace Bank.API.Controllers
 
             return NoContent();
         }
+
+        // New API endpoint to get accounts joined with customers using SP
+        [HttpGet("with-customers")]
+        public async Task<IActionResult> GetAccountsWithCustomers()
+        {
+            try
+            {
+                var accountsWithCustomers = await _accountRepository.GetAccountsWithCustomersAsync();
+                return Ok(accountsWithCustomers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 
     }

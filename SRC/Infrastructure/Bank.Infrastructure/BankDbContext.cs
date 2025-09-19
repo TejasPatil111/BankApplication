@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bank.Application.Features.Account.AccountWithCustomerDto;
 using Bank.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Infrastructure
 {
@@ -12,6 +13,9 @@ namespace Bank.Infrastructure
         public DbSet<LedgerEntry> LedgerEntiries { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
         public DbSet<Money> Money { get; set; }
+        public DbSet<AccountWithCustomerDto> AccountsWithCustomersDto { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>
@@ -43,14 +47,28 @@ namespace Bank.Infrastructure
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BankDbContext).Assembly);
 
-
-
-        }
+           
+            // Register keyless entity for DTO
+            modelBuilder.Entity<AccountWithCustomerDto>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView(null); // Not mapped to a table or view
+                entity.Property(e => e.Id);
+                entity.Property(e => e.AccountNo);
+                entity.Property(e => e.CustomerId);
+                entity.Property(e => e.CustomerName);
+                entity.Property(e => e.CustomerEmail);
+                // Map other Customer properties similarly
+            });
         
-        
-
-
 
 
     }
+
+
+
+
+
+
+}
 }

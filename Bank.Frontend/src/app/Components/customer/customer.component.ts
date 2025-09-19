@@ -55,7 +55,6 @@ export class CustomerComponent implements OnInit {
   }
 
   deleteCustomer(id: number) {
-    debugger
     this.CusService.delete(id).subscribe(() => {
       this.loadCustomers();
     });
@@ -63,13 +62,10 @@ export class CustomerComponent implements OnInit {
 
   saveCustomer() {
     if (this.isEditMode) {
-      // update existing customer
-      debugger
       this.CusService.update(this.newCustomer.id, this.newCustomer).subscribe(() => {
         this.loadCustomers();
       });
     } else {
-      // add new customer
       this.CusService.create(this.newCustomer).subscribe(() => {
         this.loadCustomers();
         this.newCustomer = this.getEmptyCustomer();
