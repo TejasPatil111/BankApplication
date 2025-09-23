@@ -13,6 +13,7 @@ namespace Bank.Application.Features.Account.AccountWithCustomerDto
         public string AccountNo { get; set; }
 
         // Assuming Customer properties
+        public decimal Balance { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }

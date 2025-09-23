@@ -1,4 +1,5 @@
 ﻿using Bank.Application.Features.Account.AccountWithCustomerDto;
+using Bank.Application.Features.Transfers.Dto;
 using Bank.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace Bank.Infrastructure
         public DbSet<Transfer> Transfers { get; set; }
         public DbSet<Money> Money { get; set; }
         public DbSet<AccountWithCustomerDto> AccountsWithCustomersDto { get; set; }
+        public DbSet<GetAccountNoWithTransactionDto> GetAccountNoWithTransactionDto { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

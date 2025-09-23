@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿using System;
+using System.Transactions;
 using Bank.Application.Features.Transfers.Command;
 using Bank.Application.Features.Transfers.Dto;
 using Bank.Application.Interfaces;
@@ -67,6 +68,13 @@ namespace Bank.API.Controllers
         {
             var result = await _repo.AddAccAsync(dto);
             return Ok(result);
+        }
+
+        [HttpGet("GetAccountNoWithTransaction")]
+        public async Task<IActionResult> GetAccountNoWithTransaction()
+        {
+            var transactions = await _repo.GetAccountNoWithTransaction();
+            return Ok(transactions);
         }
 
     }

@@ -17,7 +17,7 @@ getAllCustomer(): Observable<any>{
 }
 
 create(fromData:CustomerDto): Observable<CustomerDto>{
-return  this.http.post<CustomerDto>(`${API_URL}`,fromData);
+return  this.http.post<CustomerDto>(`${API_URL} `,fromData);
 }
 
 update(id:number,fromData: CustomerDto): Observable<void>{

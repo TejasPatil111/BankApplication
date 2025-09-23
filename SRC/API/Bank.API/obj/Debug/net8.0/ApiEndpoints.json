@@ -436,5 +436,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.TransactionController",
+    "Method": "GetAccountNoWithTransaction",
+    "RelativePath": "api/Transaction/GetAccountNoWithTransaction",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

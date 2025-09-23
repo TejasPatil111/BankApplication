@@ -701,6 +701,18 @@
           }
         }
       }
+    },
+    "/api/Transaction/GetAccountNoWithTransaction": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {

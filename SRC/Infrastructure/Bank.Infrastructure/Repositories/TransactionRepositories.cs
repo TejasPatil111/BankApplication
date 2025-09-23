@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Application.Features.Transfers.Dto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 
 namespace Bank.Infrastructure.Repositories
@@ -15,10 +18,13 @@ namespace Bank.Infrastructure.Repositories
     public class TransactionRepositories : ITransactionRepository
     {
         private readonly BankDbContext _context;
+        private readonly string? _connectionString;
 
-        public TransactionRepositories(BankDbContext Context)
+        public TransactionRepositories(BankDbContext Context,IConfiguration configuration)
         {
             _context = Context;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+
         }
 
         public async Task<CreateTransferDto> AddAccAsync(CreateTransferDto dto)
@@ -79,7 +85,7 @@ namespace Bank.Infrastructure.Repositories
             return transactionId;
         }
 
-        public async Task<CreateTransferDto> UpdateAsync( CreateTransferDto dto)
+        public async Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto)
         {
             var trans = await _context.Transfers.FindAsync(dto.Id);
             if (trans == null)
@@ -99,6 +105,39 @@ namespace Bank.Infrastructure.Repositories
             return dto;
 
         }
+        public async Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction()
+        {
+            var result = new List<GetAccountNoWithTransactionDto>();
 
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetAccountNoWithTransaction", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    await conn.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            result.Add(new GetAccountNoWithTransactionDto
+                            {
+                                AccountNo = reader["AccountNo"].ToString(),
+                                AccountHolderName = reader["AccountHolderName"].ToString(),
+                                AccountType = reader["AccountType"].ToString(),
+                                Balance = reader.GetDecimal(reader.GetOrdinal("Balance")),
+                                Amount = reader.GetDecimal(reader.GetOrdinal("Amount")),
+                                FromAC = reader["fromAC"].ToString(),
+                                ToAC = reader["ToAC"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
+
+

@@ -40,7 +40,7 @@ namespace Bank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Account account)
         {
-           
+
             account.OpendOnUtc = DateTime.UtcNow;
 
             var created = await _accountRepository.AddAsync(account);

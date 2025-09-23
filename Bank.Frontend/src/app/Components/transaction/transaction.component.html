@@ -1,0 +1,45 @@
+<p>transaction works!</p>
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal" data-bs-target="#accountModal">+Add
+        Account</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>SrNo</th>
+            
+            <th>Account No</th>
+            <th>Account Holder </th>
+            <th>Type</th>
+            <th>Balance</th>
+            <th>Amount</th>
+            <th>FromAccount</th>
+            <th>ToACcount</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let t of Transfers let i = index ">
+            <td>{{ i + 1 }}</td>
+            <!-- <td scope="row">{{w.customerId}}</td> -->
+             
+            <td scope="row">{{t.accountNo}}</td>
+            <td scope="row">{{t.accountHolderName}}</td>
+            <td scope="row">{{t.accountType}}</td>
+            <td scope="row">{{t.balance}}</td>
+            <td scope="row">{{t.amount}}</td>
+            <td scope="row">{{t.fromAC}}</td>
+
+            <td  scope="row">{{t.toAC}}</td>
+            <!-- <td  scope="row">{{a.opendOnUtc}}</td>
+                <td  scope="row" >{{a.closedOnUtc}}</td> -->
+            <td><button   class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal"  >update</button></td>
+            <td><button  class="btn btn-danger">Delete</button></td>
+            <!-- <td  scope="row">{{a.rowVersion}}</td>            -->
+        </tr>
+    </tbody>
+</table>

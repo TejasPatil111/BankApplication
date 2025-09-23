@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccountDto } from '../Components/accounts/accountDto';
+import { AccountDto, CreateAccountDto } from '../Components/accounts/accountDto';
 import { apiurl } from '../Constatnt/Constants';
 import { Observable } from 'rxjs';
 
@@ -16,12 +16,14 @@ export class AccountsService {
     return this.http.get(`${apiurl}/Account/with-customers`);
   }
 
-  addAcount(dto:AccountDto):Observable<AccountDto>{
-    return this.http.post<AccountDto>( `${apiurl}`,dto);
+  addAcount(dto:CreateAccountDto):Observable<CreateAccountDto>{
+    return this.http.post<CreateAccountDto>( `${apiurl}/Account`,dto);
   }
 
-  updateAccount(id:number, dto:AccountDto):Observable<AccountDto>{
-    return this.http.put<AccountDto>(`${apiurl}/Update/${id}`,dto);
+  updateAccount(id:number, dto:CreateAccountDto):Observable<CreateAccountDto>{
+    return this.http.put<CreateAccountDto>(`${apiurl}/Account/${id}`,dto);
   }
-  
+  deleteAccount(id:number):Observable<void>{
+    return this.http.delete<void>(`${apiurl}/Account/${id}`);
+  }
 }
