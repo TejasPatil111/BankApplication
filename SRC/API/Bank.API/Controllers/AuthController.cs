@@ -2,9 +2,11 @@
 using System.Security.Claims;
 using System.Text;
 using Bank.Application.Dto.Auth;
+using Bank.Domain;
 using Bank.Domain.Entities;
 using Bank.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -26,16 +28,29 @@ namespace Bank.API.Controllers
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginDto logindto)
         {
-            var loginuser = _context.Customers.FirstOrDefault(c => c.Email == logindto.Email && c.Password == logindto.Password);
+            if (logindto == null || string.IsNullOrWhiteSpace(logindto.Email) || string.IsNullOrWhiteSpace(logindto.Password))
+            {
+            return BadRequest("Invalid login request");
+            }
+            var loginuser = _context.Customers.FirstOrDefault(c => c.Email == logindto.Email );
             if (loginuser == null)
             {
                 return Unauthorized("Incorrect Email or Password");
             }
+            //verify hashed password
+            var hash = new PasswordHasher<Customer>();
+            var result = hash.VerifyHashedPassword(loginuser, loginuser.Password, logindto.Password);
+            
+
+
+
+            //genrate JWT token
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_cofig["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email, logindto.Email)
+                new Claim(ClaimTypes.Email, logindto.Email),
+                new Claim("CustomerId",loginuser.id.ToString())
             };
             var token = new JwtSecurityToken(
                 issuer: _cofig["Jwt:Issuer"],
@@ -54,13 +69,25 @@ namespace Bank.API.Controllers
         [HttpPost("[action]")]
         public IActionResult Register([FromBody] Customer registerUser)
         {
-            var regUser = _context.Customers.Add(registerUser);
-            if (_context.SaveChanges() < 0)
-            {
-                return Unauthorized("Failed registering");
-            }
-            return Ok("Registered Successfully!");
+            if (registerUser == null || string.IsNullOrWhiteSpace(registerUser.Password))
+                return BadRequest("Invalid registatrion Data.");
 
+            //Hash pass before saving
+            var hasher = new PasswordHasher<Customer>();
+            registerUser.Password = hasher.HashPassword(registerUser, registerUser.Password);
+            registerUser.id = 0; 
+            registerUser.CreatedOnUtc = DateTime.UtcNow;
+            registerUser.Status = Enums.CustomerStaus.Active;
+            registerUser.KeyStatus = true;
+
+            _context.Customers.Add(registerUser);
+
+            if (_context.SaveChanges() <= 0)
+            {
+                return Unauthorized("Registartion failed");
+
+            }
+            return Ok("Registerd Successfully");
         }
 
     }
