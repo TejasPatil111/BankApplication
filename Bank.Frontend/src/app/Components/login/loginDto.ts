@@ -1,5 +1,5 @@
 export interface Login{
-    email : number;
+    email : string;
     password : string;
 }
 export interface AuthResponse {

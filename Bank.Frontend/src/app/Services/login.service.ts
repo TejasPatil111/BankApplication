@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { AuthResponse, Login } from "../Components/login/loginDto";
 import { Observable } from "rxjs";
 import { apiurl } from "../Constatnt/Constants";
-import { RouterOutlet } from "@angular/router";
+import { Router, RouterOutlet } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { RouterOutlet } from "@angular/router";
 export class LoginService {
 
   constructor(private http:HttpClient,
-    private route:RouterOutlet
+    private route:Router
   ) {}
 
     login(formLogin : Login):Observable<AuthResponse>{
