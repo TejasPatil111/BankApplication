@@ -791,6 +791,10 @@
             "type": "string",
             "nullable": true
           },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
           "keyStatus": {
             "type": "boolean"
           },

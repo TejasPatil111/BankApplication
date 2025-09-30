@@ -61,7 +61,7 @@ namespace Bank.API.Controllers
                 );
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return Ok(jwtToken);
+            return Ok(new { jwtToken }   );
 
         }
 

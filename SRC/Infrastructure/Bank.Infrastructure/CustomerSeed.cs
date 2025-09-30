@@ -20,7 +20,7 @@ namespace Bank.Infrastructure
                 Name="Tejas",
                 Email="tejas@gmail.com",
                 Password="tejas@123",
-                    KeyStatus =true,
+                KeyStatus =true,
                 Status=0,
                 CreatedOnUtc=DateTime.UtcNow
                 },
