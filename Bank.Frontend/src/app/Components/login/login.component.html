@@ -2,30 +2,30 @@
   <div class="form">
     <p>welcome</p>
     <form *ngIf="!showRegisterForm" class="login-form">
-      <input  name="email" type="email" placeholder="email">
-      <input  name="password"  type="password" placeholder="password" required />
-      <button   class="button"  >login</button>
+      <input [(ngModel)]="LoginObj.email" name="email" type="email" placeholder="email" autocomplete="new-email">
+      <input  [(ngModel)]="LoginObj.password" name="password"  type="password" placeholder="password"  autocomplete="new-password" required />
+      <button   class="button" (click)="UserLogin()" >login</button>
     
       <h6>don't have an account click on register?</h6>
       <button (click)="ToggleForm()" > Register </button>
       
     </form>  
     <form *ngIf="showRegisterForm" #form="ngForm" class="register-form">
-      <input [(ngModel)]="regObj.name" #name="ngModel" required name ="username" type="text" placeholder="username">
+      <input [(ngModel)]="regObj.name" #name="ngModel" required name ="username" type="text" placeholder="username" autocomplete="new-name">
       <div class="text-danger">@if(name.errors?.['required']){
         <span>This is required</span>
         }</div>
-      <input [(ngModel)]="regObj.email" #email="ngModel" required name="email" type="email" placeholder="email">
+      <input [(ngModel)]="regObj.email" #email="ngModel" required name="email" type="email" placeholder="email" autocomplete="new-email" >
       <div class="text-danger">@if(email.errors?.['required']){
         <span>This is required</span>
         }</div>
-      <input [(ngModel)]="regObj.password" #pwd="ngModel" required name="password"  type="password" placeholder="password" >
+      <input [(ngModel)]="regObj.password" #pwd="ngModel" required name="password"  type="password" placeholder="password" autocomplete="new-password">
         <div class="text-danger">@if(pwd.errors?.['required']){
         <span >This is required</span>
         }</div>
-      <h6>don't have an account click on register?</h6>
-      <button  type="button" [disabled]="form.invalid" (click)="ToggleForm()" (click)="onRegister()" > Register </button>
       
+      <button  type="button" [disabled]="form.invalid" (click)="ToggleForm()" (click)="onRegister()" > Register </button>
+       <button   class="button" (click)="ToggleForm()" >login</button>
       
     </form>  
   </div>

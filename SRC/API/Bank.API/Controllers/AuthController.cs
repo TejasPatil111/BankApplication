@@ -87,7 +87,7 @@ namespace Bank.API.Controllers
                 return Unauthorized("Registartion failed");
 
             }
-            return Ok("Registerd Successfully");
+            return Ok(new { message = "Registerd Successfully" });
         }
 
     }

@@ -170,3 +170,5 @@ C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Bank.API.ru
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.csproj.Up2Date
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.genruntimeconfig.cache
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\ref\Bank.API.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

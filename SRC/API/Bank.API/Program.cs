@@ -1,11 +1,14 @@
 using System.Text;
 using AutoMapper;
 using Bank.API.Middleware;
+using Bank.API.Validations;
 using Bank.Application.Features.Customer.Command;
 using Bank.Application.Features.Transfers.Handlers;
 using Bank.Application.Profiles;
 using Bank.Infrastructure;
 using Bank.Infrastructure.DependancyInjection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +56,8 @@ namespace Bank.API
 
                 // Add services to the container.
                 builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
+            builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(CreateTransferHandler).Assembly);
