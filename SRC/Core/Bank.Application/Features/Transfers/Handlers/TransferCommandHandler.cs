@@ -23,41 +23,46 @@ namespace Bank.Application.Features.Transfers.Handlers
             _accountRepository = accountRepository;
         }
 
-        public async Task<CreateTransferDto> Handle(CreateTransferCommand request, CancellationToken cancellationToken)
+        public Task<CreateTransferDto> Handle(CreateTransferCommand request, CancellationToken cancellationToken)
         {
-            var FromAcc = await _accountRepository.GetByIdAsync(request.dto.FromAccountId);
-            var ToAcc = await _accountRepository.GetByIdAsync(request.dto.ToAccountId);
-            if (FromAcc.Balance < request.dto.Amount)
-            {
-                throw new InvalidOperationException("Insufficient Balance:");
-            }
-            FromAcc.Balance = FromAcc.Balance - request.dto.Amount;
-            ToAcc.Balance = ToAcc.Balance + request.dto.Amount;
-
-            var transfer = new Transfer
-            {
-                FromAccountId = request.dto.FromAccountId,
-                ToAccountId = request.dto.ToAccountId,
-                Amount = request.dto.Amount,
-                Currency = "INR",
-                Status = (int)TransferStatus.Complete,
-                InitiatedOnUtc = DateTime.UtcNow,
-                CompletedOnUtc = DateTime.UtcNow,
-
-            };
-            await _transactionRepository.AddAccAsync(transfer);
-
-            return new CreateTransferDto
-            {
-                Id = transfer.Id,
-                FromAccountId = transfer.FromAccountId,
-                ToAccountId = transfer.ToAccountId,
-                Amount = transfer.Amount,
-                Status = transfer.Status,
-                
-            };
-
-
+            throw new NotImplementedException();
         }
+
+        //public async Task<CreateTransferDto> Handle(CreateTransferCommand request, CancellationToken cancellationToken)
+        //{
+        //    var FromAcc = await _accountRepository.GetByIdAsync(request.dto.FromAccountId);
+        //    var ToAcc = await _accountRepository.GetByIdAsync(request.dto.ToAccountId);
+        //    if (FromAcc.Balance < request.dto.Amount)
+        //    {
+        //        throw new InvalidOperationException("Insufficient Balance:");
+        //    }
+        //    FromAcc.Balance = FromAcc.Balance - request.dto.Amount;
+        //    ToAcc.Balance = ToAcc.Balance + request.dto.Amount;
+
+        //    var transfer = new Transfer
+        //    {
+        //        FromAccountId = request.dto.FromAccountId,
+        //        ToAccountId = request.dto.ToAccountId,
+        //        Amount = request.dto.Amount,
+        //        Currency = "INR",
+        //        Status = (int)TransferStatus.Complete,
+        //        InitiatedOnUtc = DateTime.UtcNow,
+        //        CompletedOnUtc = DateTime.UtcNow,
+
+        //    };
+        //    await _transactionRepository.AddAccAsync(transfer);
+
+        //    return new CreateTransferDto
+        //    {
+        //        Id = transfer.Id,
+        //        FromAccountId = transfer.FromAccountId,
+        //        ToAccountId = transfer.ToAccountId,
+        //        Amount = transfer.Amount,
+        //        Status = transfer.Status,
+
+        //    };
+
+
+        //}
     }
 }

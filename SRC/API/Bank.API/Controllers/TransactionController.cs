@@ -32,8 +32,8 @@ namespace Bank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTransferDto dto)
         {
-            var result = await _mediator.Send(new CreateTransferCommand(dto));
-            return Ok(result);
+             await _mediator.Send(new CreateTransferCommand(dto));
+            return Ok(new { message="Transfer Completed Successfully."});
 
         }
         [HttpGet("{id}")]
@@ -46,29 +46,24 @@ namespace Bank.API.Controllers
             }
             return Ok(transfer);
         }
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateTransfer(int id, [FromBody] CreateTransferDto dto)
-        {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("{id:int}")]
+        //public async Task<IActionResult> UpdateTransfer(int id, [FromBody] CreateTransferDto dto)
+        //{
+        //    if (id != dto.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            var update = await _mediator.Send(new CreateTransferCommand(dto));
-            return Ok(update);
-        }
+        //    var update = await _mediator.Send(new CreateTransferCommand(dto));
+        //    return Ok(update);
+        //}
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteTransfer(int id)
         {
             await _repo.DeleteAccAsync(id);
             return Ok();
         }
-        [HttpPost("CreateTransaction")]
-        public async Task<IActionResult> AddTransfer([FromBody] CreateTransferDto dto)
-        {
-            var result = await _repo.AddAccAsync(dto);
-            return Ok(result);
-        }
+        
 
         [HttpGet("GetAccountNoWithTransaction")]
         public async Task<IActionResult> GetAccountNoWithTransaction()

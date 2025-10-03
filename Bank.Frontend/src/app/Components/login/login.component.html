@@ -10,21 +10,24 @@
       <button (click)="ToggleForm()" > Register </button>
       
     </form>  
+    <!-- name -->
     <form *ngIf="showRegisterForm" #form="ngForm" class="register-form">
-      <input [(ngModel)]="regObj.name" #name="ngModel" required name ="username" type="text" placeholder="username" autocomplete="new-name">
-      <div class="text-danger">@if(name.errors?.['required']){
+      <input [(ngModel)]="regObj.name" #name="ngModel" required name ="name" type="text" placeholder="username" autocomplete="new-username">
+      <div class="text-danger">@if(name.errors?.['required']&& name.touched){
         <span>This is required</span>
         }</div>
+        <!-- email -->
       <input [(ngModel)]="regObj.email" #email="ngModel" required name="email" type="email" placeholder="email" autocomplete="new-email" >
-      <div class="text-danger">@if(email.errors?.['required']){
+      <div class="text-danger">@if(email.errors?.['required']&& name.touched){
         <span>This is required</span>
         }</div>
+        <!-- password -->
       <input [(ngModel)]="regObj.password" #pwd="ngModel" required name="password"  type="password" placeholder="password" autocomplete="new-password">
-        <div class="text-danger">@if(pwd.errors?.['required']){
+        <div class="text-danger">@if(pwd.errors?.['required']&& name.touched){
         <span >This is required</span>
         }</div>
       
-      <button  type="button" [disabled]="form.invalid" (click)="ToggleForm()" (click)="onRegister()" > Register </button>
+      <button  type="button" [disabled]="form.invalid"  (click)="onRegister()" > Register </button>
        <button   class="button" (click)="ToggleForm()" >login</button>
       
     </form>  

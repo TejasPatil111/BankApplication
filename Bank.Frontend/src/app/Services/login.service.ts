@@ -15,7 +15,7 @@ export class LoginService {
     private route:Router
   ) {}
     userRegister(data : RegisterDto):Observable<any>{
-      return this.http.post<any>(`${apiurl}/Auth/Register`, data)
+      return this.http.post(`${apiurl}/Auth/Register`, data)
     }
 
     login(data: Login):Observable<any>{

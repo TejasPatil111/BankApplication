@@ -30,21 +30,21 @@ private router:Router){}
   // register data
 regObj : RegisterDto = new RegisterDto();  
 // Login Dto
-LoginObj : Login = new Login();
 onRegister(){
-  debugger
+  console.log("Sending Register Payload: ", this.regObj);
 this.loginService.userRegister(this.regObj).subscribe({
   next:(res:any)=>{
-  alert(res.message)
+    alert(res.message)
 },
 error:(error)=>{
-  console.log(error);
+  console.log("Error Response",error);
   alert(JSON.stringify(error.error));
 }
 
 } ); 
 }
 
+LoginObj : Login = new Login();
 UserLogin(){
   this.loginService.login(this.LoginObj).subscribe({
     next:(res)=>{

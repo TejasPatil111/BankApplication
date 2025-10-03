@@ -609,46 +609,6 @@
           }
         }
       },
-      "put": {
-        "tags": [
-          "Transaction"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "Transaction"
@@ -664,37 +624,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Transaction/CreateTransaction": {
-      "post": {
-        "tags": [
-          "Transaction"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTransferDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -811,7 +740,11 @@
       "CreateTransferDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "fromAccountId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "toAccountId": {
             "type": "integer",
             "format": "int32"
           },
@@ -823,30 +756,9 @@
             "type": "string",
             "nullable": true
           },
-          "status": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "initiatedOnUtc": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "completedOnUtc": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
           "refrence": {
             "type": "string",
             "nullable": true
-          },
-          "toAccountId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fromAccountId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

@@ -14,8 +14,8 @@
         Task<IEnumerable<Transfer>> GetAllAsync();
 
         Task<bool> DeleteAccAsync(int id);
-        Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto);
-        Task<CreateTransferDto> AddAccAsync(CreateTransferDto dto);
+        //Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto);
+        Task<CreateTransferDto> SendMoneyAsync(CreateTransferDto dto);
         Task AddAccAsync(Transfer transfer);
 
         Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction();

@@ -386,27 +386,6 @@
   },
   {
     "ContainingType": "Bank.API.Controllers.TransactionController",
-    "Method": "UpdateTransfer",
-    "RelativePath": "api/Transaction/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "Bank.Application.Features.Transfers.Dto.CreateTransferDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Bank.API.Controllers.TransactionController",
     "Method": "DeleteTransfer",
     "RelativePath": "api/Transaction/{id}",
     "HttpMethod": "DELETE",
@@ -416,22 +395,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Bank.API.Controllers.TransactionController",
-    "Method": "AddTransfer",
-    "RelativePath": "api/Transaction/CreateTransaction",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Bank.Application.Features.Transfers.Dto.CreateTransferDto",
         "IsRequired": true
       }
     ],

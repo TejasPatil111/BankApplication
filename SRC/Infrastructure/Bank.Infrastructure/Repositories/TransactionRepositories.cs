@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank.Application.Exceptions;
 using Bank.Application.Features.Transfers.Dto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
@@ -27,24 +29,42 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
-        public async Task<CreateTransferDto> AddAccAsync(CreateTransferDto dto)
+        public async Task<CreateTransferDto> SendMoneyAsync(CreateTransferDto dto)
         {
-            var transfer = new Transfer
+            //custom Vaidation
+            if (dto == null)
             {
-                Amount = dto.Amount,
-                Currency = dto.Currency,
-                Status = dto.Status,
-                InitiatedOnUtc = DateTime.UtcNow,
-                CompletedOnUtc = DateTime.UtcNow,
-                Refrence = dto.Refrence,
-                ToAccountId = dto.ToAccountId,
-                FromAccountId = dto.FromAccountId
-            };
-            _context.Transfers.Add(transfer);
-            await _context.SaveChangesAsync();
-            //dto.Id = transfer.Id;
-            return dto;
-        }
+                throw new TransferExceptionValidation("Location Data Cannot Be Null");
+            }
+            var sql = "Exec SP_SendMoney @FromAccountId, @ToAccountId, @Amount, @Currency, @Reference";
+            var result = await _context.Database.ExecuteSqlRawAsync(
+        sql,
+        new SqlParameter("@FromAccountId", dto.FromAccountId),
+        new SqlParameter("@ToAccountId", dto.ToAccountId),
+        new SqlParameter("@Amount", dto.Amount),
+        new SqlParameter("@Currency", dto.Currency ?? (object)DBNull.Value),
+        new SqlParameter("@Reference", dto.Refrence ?? (object)DBNull.Value)
+    );
+
+
+            if (result == 0)
+            {
+                throw new Exception("For Some Reason,transaction Not Done ");
+
+            }
+
+             return new CreateTransferDto
+                {
+                    FromAccountId = dto.FromAccountId,
+                    ToAccountId = dto.ToAccountId,
+                    Amount = dto.Amount,
+                    Currency = dto.Currency,
+                    Refrence = dto.Refrence
+                };
+            }
+
+
+            
 
         public Task AddAccAsync(Transfer transfer)
         {
@@ -85,26 +105,26 @@ namespace Bank.Infrastructure.Repositories
             return transactionId;
         }
 
-        public async Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto)
-        {
-            var trans = await _context.Transfers.FindAsync(dto.Id);
-            if (trans == null)
-            {
-                throw new KeyNotFoundException("id Not Found:");
-            }
-            trans.Amount = dto.Amount;
-            trans.Currency = dto.Currency;
-            trans.Status = dto.Status;
-            trans.InitiatedOnUtc = DateTime.UtcNow;
-            trans.CompletedOnUtc = DateTime.UtcNow;
-            trans.Refrence = dto.Refrence;
-            trans.ToAccountId = dto.ToAccountId;
-            trans.FromAccountId = dto.FromAccountId;
+        //public async Task<CreateTransferDto> UpdateAsync(CreateTransferDto dto)
+        //{
+        //    var trans = await _context.Transfers.FindAsync(dto.Id);
+        //    if (trans == null)
+        //    {
+        //        throw new KeyNotFoundException("id Not Found:");
+        //    }
+        //    trans.Amount = dto.Amount;
+        //    trans.Currency = dto.Currency;
+        //    trans.Status = dto.Status;
+        //    trans.InitiatedOnUtc = DateTime.UtcNow;
+        //    trans.CompletedOnUtc = DateTime.UtcNow;
+        //    trans.Refrence = dto.Refrence;
+        //    trans.ToAccountId = dto.ToAccountId;
+        //    trans.FromAccountId = dto.FromAccountId;
 
-            await _context.SaveChangesAsync();
-            return dto;
+        //    await _context.SaveChangesAsync();
+        //    return dto;
 
-        }
+        //}
         public async Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction()
         {
             var result = new List<GetAccountNoWithTransactionDto>();
