@@ -3,11 +3,16 @@ export interface TransactionDto {
     amount: number,
     currency: number,
     status: number,
-    initiatedOnUtc:Date,
+    initiatedOnUtc: Date,
     completedOnUtc: Date,
     refrence: string,
-    toAccountId: 1,
-    fromAccountId: 2
-
-
+    toAccountId: number,
+    fromAccountId: number
+}
+export class postTransactionDto {
+    fromAccountId: number = 0;
+    toAccountId: number = 0;
+    amount: number = 0;
+    currency?: string;
+    refrence?: string;
 }

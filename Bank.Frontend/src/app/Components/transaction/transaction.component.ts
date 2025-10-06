@@ -1,22 +1,43 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { TransactionDto } from './TransactionsDto';
+import { postTransactionDto, TransactionDto } from './TransactionsDto';
 import { TransactionService } from '../../Services/transaction.service';
+import { FormsModule } from '@angular/forms';
+import { AccountsService } from '../../Services/accounts.service';
+import { AccountDto } from '../accounts/accountDto';
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
 export class TransactionComponent  implements OnInit{
   ngOnInit(): void {
     this.getAllTransaction();
+    this.getAccount();
   }
-  constructor(private TransferService : TransactionService){}
-Transfers :any; 
+  isEditMode:Boolean=false;
 
+  transfer :postTransactionDto = new postTransactionDto();
+
+  constructor(private TransferService : TransactionService,
+              private AccountService : AccountsService,
+  ){}
+  //to get al transfer
+Transfers :any;
+//to get all acount
+getAccountsDto: any[] =[];
+getAccount(){
+  
+  this.AccountService.getAccSr().subscribe({
+    next:(res)=>{
+      this.getAccountsDto= res;
+    },
+    error:(err) => console.error(err)
+  })
+}
 getAllTransaction(){
 this.TransferService.getTransaction().subscribe({
   next:(res) => this.Transfers = res,
@@ -24,4 +45,21 @@ this.TransferService.getTransaction().subscribe({
 })
 }
 
+SendMoney(){
+  debugger
+  if(!this.transfer.fromAccountId || !this.transfer.toAccountId || !this.transfer.amount || !this.transfer.currency||this.transfer.refrence)
+  this.TransferService.postTransaction(this.transfer).subscribe({
+  next : (res:any)=>{
+  alert(res.message);
+  console.log(res)
+  this.getAllTransaction();
+},
+error:(err)=>{
+  console.error(err);
+  alert(err.error?.message ||'Transaction Failed');
 }
+  });
+}
+
+}
+

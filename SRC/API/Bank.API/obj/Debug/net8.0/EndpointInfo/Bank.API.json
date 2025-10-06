@@ -712,27 +712,25 @@
       "CreateCustomerCommand": {
         "type": "object",
         "properties": {
+          "dto": {
+            "$ref": "#/components/schemas/CustomerDto"
+          },
           "name": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "readOnly": true
           },
           "email": {
             "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
+            "nullable": true,
+            "readOnly": true
           },
           "keyStatus": {
-            "type": "boolean"
+            "type": "boolean",
+            "readOnly": true
           },
           "status": {
             "$ref": "#/components/schemas/CustomerStaus"
-          },
-          "createdOnUtc": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -764,6 +762,38 @@
         "additionalProperties": false
       },
       "Customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "keyStatus": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CustomerStaus"
+          },
+          "createdOnUtc": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerDto": {
         "type": "object",
         "properties": {
           "id": {

@@ -9,14 +9,11 @@ using static Bank.Domain.Enums;
 
 namespace Bank.Application.Features.Customer.Command
 {
-    public class CreateCustomerCommand : IRequest<int>
+    public record CreateCustomerCommand(CustomerDto dto) : IRequest<int>
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public bool KeyStatus { get; set; }
-        public CustomerStaus Status { get; set; }
-        public DateTime CreatedOnUtc { get; set; }
-    };
-
+        public string Name { get; internal set; }
+        public string Email { get; internal set; }
+        public bool KeyStatus { get; internal set; }
+        public CustomerStaus Status { get; internal set; }
+    }
 }

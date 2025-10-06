@@ -46,6 +46,7 @@ export class AccountsComponent implements OnInit {
   constructor(private AccService: AccountsService,
     private custSer:CustomerService
   ) { }
+  
   loadAccounts() {
     this.AccService.getAccSr().subscribe({
       next: (res) => this.withcustomer = res,

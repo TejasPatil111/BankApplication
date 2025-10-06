@@ -142,6 +142,7 @@ namespace Bank.Infrastructure.Repositories
                         {
                             result.Add(new GetAccountNoWithTransactionDto
                             {
+                                id = Convert.ToInt32(reader["Id"]),
                                 AccountNo = reader["AccountNo"].ToString(),
                                 AccountHolderName = reader["AccountHolderName"].ToString(),
                                 AccountType = reader["AccountType"].ToString(),
