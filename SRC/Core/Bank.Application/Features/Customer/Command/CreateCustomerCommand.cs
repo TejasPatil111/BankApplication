@@ -14,6 +14,7 @@ namespace Bank.Application.Features.Customer.Command
         public string Name { get; set; }
         public string Email { get; set; }
         public bool KeyStatus { get; set; }
+        public string? Role { get; set; } = "User";
         public CustomerStaus Status { get; set; }
         public DateTime CreatedOnUtc { get; set; }
     };

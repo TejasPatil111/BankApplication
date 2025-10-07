@@ -66,6 +66,7 @@ namespace Bank.Infrastructure.Repositories
             existingCustomer.Name = customer.Name;
             existingCustomer.Email = customer.Email;
             existingCustomer.Password = customer.Password;
+            existingCustomer.Role = customer.Role;
             existingCustomer.KeyStatus = customer.KeyStatus;
             existingCustomer.Status = customer.Status;
             existingCustomer.CreatedOnUtc = customer.CreatedOnUtc;

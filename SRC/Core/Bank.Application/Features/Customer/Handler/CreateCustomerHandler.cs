@@ -28,6 +28,7 @@ namespace Bank.Application.Features.Customer.Handler
             {
                 Name = request.Name,
                 Email = request.Email,
+                Role = request.Role,
                 KeyStatus = request.KeyStatus,
                 Status = request.Status,
                 CreatedOnUtc = DateTime.UtcNow

@@ -28,6 +28,7 @@ namespace Bank.Application.Features.Customer.Handler
                 Name = c.Name,
                 Email = c.Email,
                 Password=c.Password,
+                Role = c.Role,
                 KeyStatus = c.KeyStatus,
                 Status = c.Status,
                 CreatedOnUtc = c.CreatedOnUtc

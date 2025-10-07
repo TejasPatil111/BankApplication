@@ -794,6 +794,10 @@
           "keyStatus": {
             "type": "boolean"
           },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
             "$ref": "#/components/schemas/CustomerStaus"
           },
@@ -863,6 +867,10 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
             "type": "string",
             "nullable": true
           },

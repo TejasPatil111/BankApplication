@@ -32,6 +32,7 @@ namespace Bank.Application.Features.Customer.Handler
                 Name = data.Name,
                 Email = data.Email,
                 KeyStatus = data.KeyStatus,
+                Role=data.Role,
                 Status = data.Status,
                 CreatedOnUtc = data.CreatedOnUtc
             };
