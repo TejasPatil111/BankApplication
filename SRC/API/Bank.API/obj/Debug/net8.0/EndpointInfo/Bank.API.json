@@ -780,6 +780,10 @@
             "type": "string",
             "nullable": true
           },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
           "keyStatus": {
             "type": "boolean"
           },
@@ -809,6 +813,10 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
             "type": "string",
             "nullable": true
           },

@@ -29,7 +29,6 @@ private router:Router){}
 
   // register data
 regObj : RegisterDto = new RegisterDto();  
-// Login Dto
 onRegister(){
   console.log("Sending Register Payload: ", this.regObj);
 this.loginService.userRegister(this.regObj).subscribe({

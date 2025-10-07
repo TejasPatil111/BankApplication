@@ -45,6 +45,7 @@ namespace Bank.Infrastructure
                 .WithMany()
                 .HasForeignKey(t => t.ToAccountId)
                 .OnDelete(DeleteBehavior.Restrict);  // or NoAction
+          
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BankDbContext).Assembly);

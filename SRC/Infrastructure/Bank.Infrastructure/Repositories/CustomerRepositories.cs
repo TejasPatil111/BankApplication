@@ -9,6 +9,7 @@ using Bank.Application.Exceptions;
 using Bank.Application.Features.Customer.Dto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
+using Bank.Infrastructure.PasswordHelpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Infrastructure.Repositories
@@ -49,6 +50,7 @@ namespace Bank.Infrastructure.Repositories
 
         public async Task AddAsync(Customer customer)
         {
+
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
@@ -65,7 +67,8 @@ namespace Bank.Infrastructure.Repositories
             // Update fields
             existingCustomer.Name = customer.Name;
             existingCustomer.Email = customer.Email;
-            existingCustomer.Password = customer.Password;
+            existingCustomer.Password = PasswordHelper.HashPassword(customer.Password);
+           
             existingCustomer.KeyStatus = customer.KeyStatus;
             existingCustomer.Status = customer.Status;
             existingCustomer.CreatedOnUtc = customer.CreatedOnUtc;

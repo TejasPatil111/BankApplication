@@ -75,11 +75,16 @@ namespace Bank.API.Controllers
             //Hash pass before saving
             var hasher = new PasswordHasher<Customer>();
             registerUser.Password = hasher.HashPassword(registerUser, registerUser.Password);
-            registerUser.id = 0; 
+            registerUser.id = 0;
+            //registerUser.Role = "User";
             registerUser.CreatedOnUtc = DateTime.UtcNow;
             registerUser.Status = Enums.CustomerStaus.Active;
             registerUser.KeyStatus = true;
 
+            if (string.IsNullOrWhiteSpace(registerUser.Role))
+            {
+                registerUser.Role = "User";
+            }
             _context.Customers.Add(registerUser);
 
             if (_context.SaveChanges() <= 0)

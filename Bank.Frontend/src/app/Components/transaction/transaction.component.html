@@ -16,8 +16,8 @@
             <th>Amount</th>
             <th>FromAccount</th>
             <th>ToACcount</th>
-            <!-- <th>Update</th>
-            <th>Delete</th> -->
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -36,8 +36,8 @@
             <td  scope="row">{{t.toAC}}</td>
             <!-- <td  scope="row">{{a.opendOnUtc}}</td>
                 <td  scope="row" >{{a.closedOnUtc}}</td> -->
-            <!-- <td><button   class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal"  >update</button></td>
-            <td><button  class="btn btn-danger">Delete</button></td> -->
+            <td><button   class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal"  >update</button></td>
+            <td><button  class="btn btn-danger">Delete</button></td>
             <!-- <td  scope="row">{{a.rowVersion}}</td>            -->
         </tr>
     </tbody>
@@ -72,7 +72,7 @@
                                 class="form-control">
                                 <option value="" disabled selected>Select Account</option>
                                 <option  *ngFor="let a of getAccountsDto" [value]="a.id">
-                                    {{a.accountNo}}
+                                    {{a.customerName}}:({{a.accountNo}})
                                 </option>
                             </select>
                         </div>

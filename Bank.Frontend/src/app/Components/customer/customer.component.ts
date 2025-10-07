@@ -23,7 +23,8 @@ export class CustomerComponent implements OnInit {
   isEditMode = false;
 
   constructor(private CusService: CustomerService,
-    private LoginService:LoginService
+    private loginService:LoginService,
+    
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +78,25 @@ export class CustomerComponent implements OnInit {
       this.loadCustomers();
     });
   }
+
+
+  //register new 
+regObj : RegisterDto = new RegisterDto();  
+onRegister(){
+  debugger
+  console.log("Sending Register Payload: ", this.regObj);
+this.loginService.userRegister(this.regObj).subscribe({
+  next:(res:any)=>{
+    alert(res.message)
+    this.loadCustomers();
+},
+error:(error)=>{
+  console.log("Error Response",error);
+  alert(JSON.stringify(error.error));
+}
+
+} ); 
+}
 
 
   // saveCustomer() {
