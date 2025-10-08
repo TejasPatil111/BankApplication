@@ -16,6 +16,10 @@ namespace Bank.Domain.Entities
         public DateTime InitiatedOnUtc { get; set; }
         public DateTime? CompletedOnUtc { get; set; }
         public string? Refrence { get; set; }
+        public int? ParentTransactionId { get; set; }
+        public string TransactionType { get; set; } = "Normal";
+        //optional self-refrencing relationship
+        public Transfer? ParentTransaction { get; set; }
 
         //navigation Proerties
         public int FromAccountId { get; set; }

@@ -16,3 +16,18 @@ export class postTransactionDto {
     currency?: string;
     refrence?: string;
 }
+// export class revrseTransactionDto {
+//     transactionId: number = 0;
+//     reference: string = '';
+// }
+
+export interface ReverseTransactionRequest {
+  transactionId: number;
+  reference?: string;
+}
+
+export interface ReverseTransactionResponse {
+  success: boolean;
+  message: string;
+}
+

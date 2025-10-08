@@ -1,5 +1,6 @@
 ﻿using Bank.Application.Features.Customer.Command;
 using Bank.Application.Features.Customer.Queries;
+using Bank.Application.Features.Transfers.Command;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using MediatR;
@@ -39,7 +40,7 @@ namespace Bank.API.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer,int id)
+        public async Task<IActionResult> UpdateCustomer([FromBody] Customer customer, int id)
         {
             var updatedCustomer = await _customerRepository.UpdateAsync(id, customer);
             if (updatedCustomer == null)
@@ -66,6 +67,7 @@ namespace Bank.API.Controllers
             return NoContent();
         }
 
+        
 
 
 

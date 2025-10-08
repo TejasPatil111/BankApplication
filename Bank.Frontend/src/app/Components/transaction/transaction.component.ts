@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { postTransactionDto, TransactionDto } from './TransactionsDto';
+import { postTransactionDto, ReverseTransactionRequest, ReverseTransactionResponse,  TransactionDto } from './TransactionsDto';
 import { TransactionService } from '../../Services/transaction.service';
 import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
@@ -46,7 +46,7 @@ this.TransferService.getTransaction().subscribe({
 }
 
 SendMoney(){
-  debugger
+  
   if(!this.transfer.fromAccountId || !this.transfer.toAccountId || !this.transfer.amount || !this.transfer.currency||this.transfer.refrence)
   this.TransferService.postTransaction(this.transfer).subscribe({
   next : (res:any)=>{
@@ -61,5 +61,34 @@ error:(err)=>{
   });
 }
 
+
+
+isLoading=false;
+request : ReverseTransactionRequest= {transactionId: 0, reference: ''};
+response?:ReverseTransactionResponse;
+revrseTransaction(){
+  if(!this.request.transactionId ){
+  this.response ={success:false, message:'Please Enter Valid Transaction Id'}
+return;
 }
+this.isLoading=true;
+this.response=undefined;
+this.TransferService.revrseTransaction(this.request).subscribe({
+  next:(res)=>{
+    this.response=res;
+    this.isLoading= false;
+
+  },
+   error: (err) => {
+        this.response = {
+          success: false,
+          message: err.error?.message || 'An error occurred while reversing the transaction.'
+        };
+        this.isLoading = false;
+      }
+});
+}
+}
+
+
 

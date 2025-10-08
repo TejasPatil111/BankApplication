@@ -45,24 +45,29 @@ namespace Bank.Infrastructure
                 .WithMany()
                 .HasForeignKey(t => t.ToAccountId)
                 .OnDelete(DeleteBehavior.Restrict);  // or NoAction
-          
+
+            modelBuilder.Entity<Transfer>()
+                .HasOne(t => t.ParentTransaction)
+                .WithMany()
+                .HasForeignKey(t=>t.ParentTransactionId)
+                .OnDelete(DeleteBehavior.Restrict);  // or NoAction
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BankDbContext).Assembly);
 
            
             // Register keyless entity for DTO
-            modelBuilder.Entity<AccountWithCustomerDto>(entity =>
-            {
-                entity.HasNoKey();
-                entity.ToView(null); // Not mapped to a table or view
-                entity.Property(e => e.Id);
-                entity.Property(e => e.AccountNo);
-                entity.Property(e => e.CustomerId);
-                entity.Property(e => e.CustomerName);
-                entity.Property(e => e.CustomerEmail);
-                // Map other Customer properties similarly
-            });
+            //modelBuilder.Entity<AccountWithCustomerDto>(entity =>
+            //{
+            //    entity.HasNoKey();
+            //    entity.ToView(null); // Not mapped to a table or view
+            //    entity.Property(e => e.Id);
+            //    entity.Property(e => e.AccountNo);
+            //    entity.Property(e => e.CustomerId);
+            //    entity.Property(e => e.CustomerName);
+            //    entity.Property(e => e.CustomerEmail);
+            //    // Map other Customer properties similarly
+            //});
         
 
 

@@ -174,7 +174,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 10, 7, 7, 43, 35, 718, DateTimeKind.Utc).AddTicks(8881),
+                            CreatedOnUtc = new DateTime(2025, 10, 8, 7, 27, 57, 419, DateTimeKind.Utc).AddTicks(9238),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -185,7 +185,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 10, 7, 7, 43, 35, 718, DateTimeKind.Utc).AddTicks(8885),
+                            CreatedOnUtc = new DateTime(2025, 10, 8, 7, 27, 57, 419, DateTimeKind.Utc).AddTicks(9246),
                             Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",
@@ -290,6 +290,9 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<DateTime>("InitiatedOnUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ParentTransactionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Refrence")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,9 +302,15 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<int>("ToAccountId")
                         .HasColumnType("int");
 
+                    b.Property<string>("TransactionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FromAccountId");
+
+                    b.HasIndex("ParentTransactionId");
 
                     b.HasIndex("ToAccountId");
 
@@ -327,6 +336,11 @@ namespace Bank.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Bank.Domain.Entities.Transfer", "ParentTransaction")
+                        .WithMany()
+                        .HasForeignKey("ParentTransactionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bank.Domain.Entities.Account", "ToAccount")
                         .WithMany()
                         .HasForeignKey("ToAccountId")
@@ -334,6 +348,8 @@ namespace Bank.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("FromAccount");
+
+                    b.Navigation("ParentTransaction");
 
                     b.Navigation("ToAccount");
                 });

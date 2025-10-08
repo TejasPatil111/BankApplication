@@ -32,8 +32,8 @@ namespace Bank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTransferDto dto)
         {
-             await _mediator.Send(new CreateTransferCommand(dto));
-            return Ok(new { message="Transfer Completed Successfully."});
+            await _mediator.Send(new CreateTransferCommand(dto));
+            return Ok(new { message = "Transfer Completed Successfully." });
 
         }
         [HttpGet("{id}")]
@@ -63,7 +63,7 @@ namespace Bank.API.Controllers
             await _repo.DeleteAccAsync(id);
             return Ok();
         }
-        
+
 
         [HttpGet("GetAccountNoWithTransaction")]
         public async Task<IActionResult> GetAccountNoWithTransaction()
@@ -72,5 +72,13 @@ namespace Bank.API.Controllers
             return Ok(transactions);
         }
 
+        [HttpPost("reverse")]
+        public async Task<IActionResult> ReverseTransaction([FromBody] ReverseTransactionCommand command)
+        {
+            var response = await _mediator.Send(command);
+            if (response.Success)
+                return Ok(response);
+            return BadRequest(response);
+        }
     }
 }

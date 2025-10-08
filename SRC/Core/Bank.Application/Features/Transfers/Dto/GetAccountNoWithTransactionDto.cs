@@ -16,5 +16,7 @@ namespace Bank.Application.Features.Transfers.Dto
         public decimal Amount { get; set; }
         public string FromAC { get; set; }
         public string ToAC { get; set; }
+        public int? ParentTransactionId { get; set; }
+        public string TransactionType { get; set; } = "Normal";
     }
 }

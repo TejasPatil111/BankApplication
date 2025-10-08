@@ -19,5 +19,6 @@
         Task AddAccAsync(Transfer transfer);
 
         Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction();
+        Task<ReverseTransactionDto> ReverseTransactionAsync(int transactionId, string reference = null);
     }
 }

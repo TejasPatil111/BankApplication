@@ -165,10 +165,10 @@ C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebas
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.csproj.Up2Date
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.dll
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\refint\Bank.API.dll
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.pdb
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.genruntimeconfig.cache
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\ref\Bank.API.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

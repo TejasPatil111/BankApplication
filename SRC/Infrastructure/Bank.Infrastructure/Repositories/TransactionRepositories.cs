@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Application.Exceptions;
@@ -149,7 +150,12 @@ namespace Bank.Infrastructure.Repositories
                                 Balance = reader.GetDecimal(reader.GetOrdinal("Balance")),
                                 Amount = reader.GetDecimal(reader.GetOrdinal("Amount")),
                                 FromAC = reader["fromAC"].ToString(),
-                                ToAC = reader["ToAC"].ToString()
+                                ToAC = reader["ToAC"].ToString(),
+                                ParentTransactionId = reader["ParentTransactionId"] == DBNull.Value  ? (int?)null
+                                : Convert.ToInt32(reader["ParentTransactionId"]),
+                                TransactionType = reader["TransactionType"] == DBNull.Value  ? null
+                                : reader["TransactionType"].ToString(),
+
                             });
                         }
                     }
@@ -158,7 +164,38 @@ namespace Bank.Infrastructure.Repositories
 
             return result;
         }
+
+        public async Task<ReverseTransactionDto> ReverseTransactionAsync(int transactionId, string reference = null)
+        {
+            var result = new ReverseTransactionDto();
+
+            try
+            {
+                using (var conn = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand("SP_ReverseTransaction", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@TransactionId", transactionId);
+                    cmd.Parameters.AddWithValue("@Reference", string.IsNullOrEmpty(reference) ? (object)DBNull.Value : reference);
+
+                    await conn.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
+
+                result.Success = true;
+                result.Message = "Transaction reversed successfully.";
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
     }
 }
+
 
 

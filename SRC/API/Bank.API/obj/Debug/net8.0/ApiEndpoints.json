@@ -409,5 +409,21 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.TransactionController",
+    "Method": "ReverseTransaction",
+    "RelativePath": "api/Transaction/reverse",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Bank.Application.Features.Transfers.Command.ReverseTransactionCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
