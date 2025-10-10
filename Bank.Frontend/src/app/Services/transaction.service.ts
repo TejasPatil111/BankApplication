@@ -23,4 +23,7 @@ export class TransactionService {
     return this.http.post<ReverseTransactionResponse>(`${apiurl}/Transaction/reverse`, dto)
   }
 
+  Delete(id:number):Observable<any>{
+    return this.http.delete(`${apiurl}/Transaction/${id}`);
+  } 
 }

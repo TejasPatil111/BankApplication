@@ -10,16 +10,22 @@ using Bank.Application.Features.Customer.Dto;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
 using Bank.Infrastructure.PasswordHelpers;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Bank.Infrastructure.Repositories
 {
     public class CustomerRepositories : ICustomerRepsitory
     {
         private readonly BankDbContext _context;
-        public CustomerRepositories(BankDbContext context)
+        private readonly string  _connectionString;
+
+        public CustomerRepositories(BankDbContext context, IConfiguration Config )
         {
             _context = context;
+            _connectionString = Config.GetConnectionString("DefaultConnection");
         }
 
 
@@ -56,7 +62,7 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
-        public async Task<Customer> UpdateAsync(int id ,Customer customer)
+        public async Task<Customer> UpdateAsync(int id, Customer customer)
         {
             var existingCustomer = await _context.Customers.FindAsync(id);
             if (existingCustomer == null)
@@ -68,7 +74,7 @@ namespace Bank.Infrastructure.Repositories
             existingCustomer.Name = customer.Name;
             existingCustomer.Email = customer.Email;
             existingCustomer.Password = PasswordHelper.HashPassword(customer.Password);
-           
+
             existingCustomer.KeyStatus = customer.KeyStatus;
             existingCustomer.Status = customer.Status;
             existingCustomer.CreatedOnUtc = customer.CreatedOnUtc;
@@ -90,6 +96,29 @@ namespace Bank.Infrastructure.Repositories
             else { throw new CustomerNotFoundException(id); }
 
         }
+
+        public async Task<Customer> GetCustomerByEmailAsync(string email)
+        {
+            using var sqlConn = new SqlConnection(_connectionString);
+            var sql = "Select * From Customers Where Email =@Email ";
+            return (await sqlConn.QueryAsync<Customer>(sql,new {Email = email})).FirstOrDefault();
+        }
+
+        public async Task<Customer> GetCustomerByTokenAsync(string token)
+        {
+            using var SqlConn = new SqlConnection(_connectionString);
+            var sql = "Select * from Customers Where PasswordResetToken = @Token";
+            return (await SqlConn.QueryAsync<Customer>(sql,new { Token = token})).FirstOrDefault();
+        }
+
+        public async Task UpdateAsync(Customer customer)
+        {
+            using var SqlConn = new SqlConnection(_connectionString);
+            var sql = @"Update Customers Set Password=@Password, PasswordResetToken=@PasswordResetToken, TokenExpiry = @TokenExpiry Where Id =@Id";
+            await SqlConn.ExecuteAsync(sql, customer);
+        }
+
+
 
 
 
@@ -165,6 +194,8 @@ namespace Bank.Infrastructure.Repositories
 
         //    return existing;
         //}
+
+
 
     }
 }

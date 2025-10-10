@@ -1,17 +1,56 @@
-
-
-
 <div class="d-flex justify-content-end">
-    <button   class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal" (click)="revrseTransaction()">Reverse</button>
+    <button class="add-btn btn btn-outline-primary margin-left mb-2" data-bs-toggle="collapse"
+    data-bs-target="#reverse-container">
+    Reverse Transaction <i class="fa-solid fa-angle-down"></i>
+    </button>
     <hr>
-    <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal" data-bs-target="#transactionModal">+Tansfer Money</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal"
+    data-bs-target="#transactionModal">+Tansfer Money</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
+
+
+
+<!-- Reverse Transaction Toggle Button -->
+
+<!-- Collapsible Reverse Transaction Card -->
+<div class="card mb-2 collapse" id="reverse-container">
+    <div class="card-body">
+        <form #reverseForm="ngForm">
+
+            <div class="row g-3 align-items-center">
+                <!-- Transaction ID -->
+                <div class="col-md-5">
+                    <label for="transactionId" class="form-label">Transaction ID</label>
+                    <input type="text" id="transactionId" name="transactionId" class="form-control"
+                        placeholder="Enter Transaction ID" [(ngModel)]="request.transactionId" required />
+                </div>
+
+                <!-- Reference -->
+                <div class="col-md-5">
+                    <label for="reference" class="form-label">Reference / Reason</label>
+                    <input type="text" id="reference" name="reference" class="form-control"
+                        placeholder="Enter reference or reason" [(ngModel)]="request.reference" required />
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-2 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-2" (click)="revrseTransaction()">Reverse</button>
+                    <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
 
 <table class="table">
     <thead>
         <tr>
-            
+
             <th>SrNo</th>
             <th>TransactionNo</th>
             <th>Account No</th>
@@ -31,19 +70,19 @@
         <tr *ngFor="let t of Transfers let i = index ">
             <td>{{ i + 1 }}</td>
             <!-- <td scope="row">{{w.customerId}}</td> -->
-             <td  scope="row">{{t.id}}</td>
+            <td scope="row">{{t.id}}</td>
             <td scope="row">{{t.accountNo}}</td>
             <td scope="row">{{t.accountHolderName}}</td>
             <td scope="row">{{t.accountType}}</td>
             <td scope="row">{{t.balance}}</td>
             <td scope="row">{{t.amount}}</td>
             <td scope="row">{{t.fromAC}}</td>
-            <td  scope="row">{{t.toAC}}</td>
-           <td  scope="row">{{t.parentTransactionId}}</td>
-           <td  scope="row">{{t.transactionType}}</td>
+            <td scope="row">{{t.toAC}}</td>
+            <td scope="row">{{t.parentTransactionId}}</td>
+            <td scope="row">{{t.transactionType}}</td>
             <!-- <td  scope="row">{{a.opendOnUtc}}</td>
                 <td  scope="row" >{{a.closedOnUtc}}</td> -->
-            <td><button  class="btn btn-danger">Delete</button></td>
+            <td><button class="btn btn-danger"  (click)="deleteTransaction(t.id)">Delete</button></td>
             <!-- <td  scope="row">{{a.rowVersion}}</td>            -->
         </tr>
     </tbody>
@@ -67,17 +106,17 @@
                             <select [(ngModel)]="transfer.fromAccountId" name="fromAccountId" id="fromAccountId"
                                 class="form-control">
                                 <option value="" disabled selected>Select Account</option>
-                                <option  *ngFor="let a of getAccountsDto" [value]="a.id">
+                                <option *ngFor="let a of getAccountsDto" [value]="a.id">
                                     {{a.customerName}}:({{a.accountNo}})
                                 </option>
                             </select>
                         </div>
-                        <div class="mb-3">  
+                        <div class="mb-3">
                             <label for="customer">To AccountNo </label>
                             <select [(ngModel)]="transfer.toAccountId" name="toAccountId" id="toAccountId"
                                 class="form-control">
                                 <option value="" disabled selected>Select Account</option>
-                                <option  *ngFor="let a of getAccountsDto" [value]="a.id">
+                                <option *ngFor="let a of getAccountsDto" [value]="a.id">
                                     {{a.customerName}}:({{a.accountNo}})
                                 </option>
                             </select>
@@ -85,7 +124,7 @@
                         <div class="mb-3">
                             <label>Amount</label>
                             <input type="number" [(ngModel)]="transfer.amount" name="amount" class="form-control" />
-                        </div>  
+                        </div>
                         <!-- <div class="mb-3">
                             <label>Currency</label>
                             <input type="text" [(ngModel)]="transfer.currency" name="currency" class="form-control" />
@@ -93,22 +132,70 @@
                         <div class="mb-3">
                             <label>Refrence</label>
                             <input type="text" [(ngModel)]="transfer.refrence" name="refrence" class="form-control" />
-                        </div>     
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                <button type="submit"  class="btn btn-primary" (click)="SendMoney()" data-bs-dismiss="modal">{{ isEditMode? 'Update' : 'Save' }}</button>
+                    <button type="submit" class="btn btn-primary" (click)="SendMoney()" data-bs-dismiss="modal">{{
+                        isEditMode? 'Update' : 'Save' }}</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    
-
-
-    
-
-    
+    <div class="modal " id="reverseTransactionModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ isEditMode? 'Update Customer' : 'Add Customer'}}</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="customer">From AccountNo</label>
+                                <select [(ngModel)]="transfer.fromAccountId" name="fromAccountId" id="fromAccountId"
+                                    class="form-control">
+                                    <option value="" disabled selected>Select Account</option>
+                                    <option *ngFor="let a of getAccountsDto" [value]="a.id">
+                                        {{a.customerName}}:({{a.accountNo}})
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customer">To AccountNo </label>
+                                <select [(ngModel)]="transfer.toAccountId" name="toAccountId" id="toAccountId"
+                                    class="form-control">
+                                    <option value="" disabled selected>Select Account</option>
+                                    <option *ngFor="let a of getAccountsDto" [value]="a.id">
+                                        {{a.customerName}}:({{a.accountNo}})
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label>Amount</label>
+                                <input type="number" [(ngModel)]="transfer.amount" name="amount" class="form-control" />
+                            </div>
+                            <!-- <div class="mb-3">
+                            <label>Currency</label>
+                            <input type="text" [(ngModel)]="transfer.currency" name="currency" class="form-control" />
+                        </div> -->
+                            <div class="mb-3">
+                                <label>Refrence</label>
+                                <input type="text" [(ngModel)]="transfer.refrence" name="refrence"
+                                    class="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" (click)="SendMoney()" data-bs-dismiss="modal">{{
+                            isEditMode? 'Update' : 'Save' }}</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>

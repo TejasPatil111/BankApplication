@@ -1,10 +1,13 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Bank.Application.Dto.Auth;
+using Bank.Application.AuthDto.Auth.Commands;
+using Bank.Application.AuthDto.Auth.Dtos;
+using Bank.Application.Interfaces;
 using Bank.Domain;
 using Bank.Domain.Entities;
 using Bank.Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,22 +20,25 @@ namespace Bank.API.Controllers
     public class AuthController : ControllerBase
     {
         BankDbContext _context;
-
+        private readonly ICustomerRepsitory _repo;
+        private readonly IMediator _mediator;
         private readonly IConfiguration _cofig;
 
-        public AuthController(IConfiguration cofig, BankDbContext context)
+        public AuthController(IConfiguration cofig, BankDbContext context, ICustomerRepsitory repo,IMediator mediator)
         {
             _cofig = cofig;
             _context = context;
+            _repo = repo;
+            _mediator = mediator;
         }
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginDto logindto)
         {
             if (logindto == null || string.IsNullOrWhiteSpace(logindto.Email) || string.IsNullOrWhiteSpace(logindto.Password))
             {
-            return BadRequest("Invalid login request");
+                return BadRequest("Invalid login request");
             }
-            var loginuser = _context.Customers.FirstOrDefault(c => c.Email == logindto.Email );
+            var loginuser = _context.Customers.FirstOrDefault(c => c.Email == logindto.Email);
             if (loginuser == null)
             {
                 return Unauthorized("Incorrect Email or Password");
@@ -40,7 +46,7 @@ namespace Bank.API.Controllers
             //verify hashed password
             var hash = new PasswordHasher<Customer>();
             var result = hash.VerifyHashedPassword(loginuser, loginuser.Password, logindto.Password);
-            
+
 
 
 
@@ -61,7 +67,7 @@ namespace Bank.API.Controllers
                 );
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return Ok(new { jwtToken }   );
+            return Ok(new { jwtToken });
 
         }
 
@@ -93,6 +99,30 @@ namespace Bank.API.Controllers
 
             }
             return Ok(new { message = "Registerd Successfully" });
+        }
+
+
+
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        {
+            var result = await _mediator.Send(new ResetPaswordCommand
+            {
+                Token = dto.Token,
+                NewPassword = dto.NewPassword
+            });
+            return Ok(result);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommand dto)
+        {
+            var result = await _mediator.Send(new ForgotPasswordCommand()
+            {
+                Email = dto.Email
+            });
+            return Ok(result);
         }
 
     }

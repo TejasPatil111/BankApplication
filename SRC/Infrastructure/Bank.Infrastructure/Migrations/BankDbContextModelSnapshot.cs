@@ -24,6 +24,12 @@ namespace Bank.Infrastructure.Migrations
 
             modelBuilder.Entity("Bank.Application.Features.Account.AccountWithCustomerDto.AccountWithCustomerDto", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("AccountNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -42,12 +48,9 @@ namespace Bank.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.ToTable((string)null);
-
-                    b.ToView(null, (string)null);
+                    b.ToTable("AccountsWithCustomersDto");
                 });
 
             modelBuilder.Entity("Bank.Application.Features.Transfers.Dto.GetAccountNoWithTransactionDto", b =>
@@ -80,7 +83,14 @@ namespace Bank.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ParentTransactionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ToAC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -159,12 +169,18 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("TokenExpiry")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -174,7 +190,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 10, 8, 7, 27, 57, 419, DateTimeKind.Utc).AddTicks(9238),
+                            CreatedOnUtc = new DateTime(2025, 10, 10, 11, 48, 21, 704, DateTimeKind.Utc).AddTicks(619),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -185,7 +201,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 10, 8, 7, 27, 57, 419, DateTimeKind.Utc).AddTicks(9246),
+                            CreatedOnUtc = new DateTime(2025, 10, 10, 11, 48, 21, 704, DateTimeKind.Utc).AddTicks(623),
                             Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",

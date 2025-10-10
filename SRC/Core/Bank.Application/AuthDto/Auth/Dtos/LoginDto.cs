@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bank.Application.Dto.Auth
+namespace Bank.Application.AuthDto.Auth.Dtos
 {
     public class LoginDto
     {

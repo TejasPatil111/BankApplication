@@ -90,6 +90,22 @@
   },
   {
     "ContainingType": "Bank.API.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Bank.Application.AuthDto.Auth.Commands.ForgotPasswordCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
@@ -98,7 +114,7 @@
     "Parameters": [
       {
         "Name": "logindto",
-        "Type": "Bank.Application.Dto.Auth.LoginDto",
+        "Type": "Bank.Application.AuthDto.Auth.Dtos.LoginDto",
         "IsRequired": true
       }
     ],
@@ -115,6 +131,22 @@
       {
         "Name": "registerUser",
         "Type": "Bank.Domain.Entities.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Auth/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Bank.Application.AuthDto.Auth.Dtos.ResetPasswordDto",
         "IsRequired": true
       }
     ],

@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { postTransactionDto, ReverseTransactionRequest, ReverseTransactionResponse,  TransactionDto } from './TransactionsDto';
 import { TransactionService } from '../../Services/transaction.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { AccountDto } from '../accounts/accountDto';
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [CommonModule,FormsModule,],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule, ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
@@ -61,12 +61,11 @@ error:(err)=>{
   });
 }
 
-
-
 isLoading=false;
 request : ReverseTransactionRequest= {transactionId: 0, reference: ''};
 response?:ReverseTransactionResponse;
 revrseTransaction(){
+  debugger
   if(!this.request.transactionId ){
   this.response ={success:false, message:'Please Enter Valid Transaction Id'}
 return;
@@ -77,6 +76,7 @@ this.TransferService.revrseTransaction(this.request).subscribe({
   next:(res)=>{
     this.response=res;
     this.isLoading= false;
+    this.getAllTransaction();
 
   },
    error: (err) => {
@@ -84,11 +84,23 @@ this.TransferService.revrseTransaction(this.request).subscribe({
           success: false,
           message: err.error?.message || 'An error occurred while reversing the transaction.'
         };
+        alert("Cannot reverse A Cancelled Or Failed Transaction:")
         this.isLoading = false;
       }
 });
 }
+
+deleteTransaction(id: number) {
+  this.TransferService.Delete(id).subscribe({
+    next: () => {
+      this.getAllTransaction(); // refresh table
+      alert('Transaction  deleted successfully.');
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Failed to delete transaction. First Delete Reverse Transaction');
+    }
+  });
 }
 
-
-
+}

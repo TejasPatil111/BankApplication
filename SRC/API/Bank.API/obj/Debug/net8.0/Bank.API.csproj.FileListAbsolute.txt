@@ -172,3 +172,8 @@ C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.pd
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\Bank.API.genruntimeconfig.cache
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\ref\Bank.API.dll
 C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Dapper.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\user\source\Practise\Bank\SRC\API\Bank.API\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll

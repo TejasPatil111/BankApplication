@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Application.Interfaces;
+using Bank.Infrastructure.EmailService;
 using Bank.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ namespace Bank.Infrastructure.DependancyInjection
             services.AddScoped<ITransactionRepository, TransactionRepositories>();
             services.AddScoped<ILedgerRepository, LeddgerRepository>();
             services.AddScoped<IMoneyRepository, MoneyRepository>();
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
     }
