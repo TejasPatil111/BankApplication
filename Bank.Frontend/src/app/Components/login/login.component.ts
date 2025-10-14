@@ -4,14 +4,14 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule, JsonPipe } from "@angular/common";
 import { HttpBackend, HttpClient } from "@angular/common/http";
 import { LoginService } from "../../Services/login.service";
-import { Route, Router, RouterOutlet } from "@angular/router";
+import { Route, Router, RouterOutlet, RouterLink } from "@angular/router";
 import { jwtDecode } from "jwt-decode";
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,CommonModule,],
+  imports: [FormsModule, CommonModule, ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -54,6 +54,7 @@ UserLogin(){
     //decodetoken
       const decoded :any=jwtDecode(res.jwtToken) ;
       localStorage.setItem("email",decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]); 
+      localStorage.setItem("CustomerRole", decoded.CustomerRole)
       localStorage.setItem("customerId", decoded.CustomerId); 
       this.router.navigateByUrl('/customer');
     },

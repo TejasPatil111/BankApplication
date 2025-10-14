@@ -8,7 +8,8 @@ namespace Bank.Application.AuthDto.Auth.Dtos
 {
     public class ResetPasswordDto
     {
-        public string Token { get; set; }
+        public string Email { get; set; }
+        public string OtpCode { get; set; }
         public string NewPassword { get; set; }
     }
 }

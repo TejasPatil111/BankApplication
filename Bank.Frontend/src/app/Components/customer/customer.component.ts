@@ -88,13 +88,13 @@ onRegister(){
 this.loginService.userRegister(this.regObj).subscribe({
   next:(res:any)=>{
     alert(res.message)
+    
     this.loadCustomers();
 },
 error:(error)=>{
   console.log("Error Response",error);
   alert(JSON.stringify(error.error));
 }
-
 } ); 
 }
 

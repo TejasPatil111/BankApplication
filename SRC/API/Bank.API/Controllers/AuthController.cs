@@ -8,9 +8,9 @@ using Bank.Domain;
 using Bank.Domain.Entities;
 using Bank.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Bank.API.Controllers
@@ -22,15 +22,24 @@ namespace Bank.API.Controllers
         BankDbContext _context;
         private readonly ICustomerRepsitory _repo;
         private readonly IMediator _mediator;
+        private readonly IEmailSender _emailSender;
+        private readonly ILogger<AuthController> _logger;
         private readonly IConfiguration _cofig;
 
-        public AuthController(IConfiguration cofig, BankDbContext context, ICustomerRepsitory repo,IMediator mediator)
+        //otp settings
+        private const int OtpLength = 6;
+        private readonly TimeSpan OtpValidity = TimeSpan.FromMinutes(10);
+
+        public AuthController(IConfiguration cofig, BankDbContext context, ICustomerRepsitory repo, IMediator mediator, IEmailSender emailSender, ILogger<AuthController> logger)
         {
             _cofig = cofig;
             _context = context;
             _repo = repo;
             _mediator = mediator;
+            _emailSender = emailSender;
+            _logger = logger;
         }
+
         [HttpPost("[action]")]
         public IActionResult Login([FromBody] LoginDto logindto)
         {
@@ -56,6 +65,7 @@ namespace Bank.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, logindto.Email),
+                new Claim("CustomerRole",loginuser.Role),
                 new Claim("CustomerId",loginuser.id.ToString())
             };
             var token = new JwtSecurityToken(
@@ -104,29 +114,104 @@ namespace Bank.API.Controllers
 
 
 
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPaswordDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Email))
+            {
+                return BadRequest(new { error = "Email is required" });
+            }
+
+            var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Email == dto.Email.Trim().ToLower());
+            if (customer == null)
+            {
+                return NotFound(new { error = "User Not Found" });
+            }
+
+            var rnd = new Random();
+            var otpPlain = rnd.Next((int)Math.Pow(10, OtpLength - 1), (int)Math.Pow(10, OtpLength) - 1).ToString();
+
+            //hash Otp before storing
+            var otpHashed = BCrypt.Net.BCrypt.HashPassword(otpPlain);
+            customer.OtpCode = otpHashed;
+            customer.OtpExpiry = DateTime.UtcNow.Add(OtpValidity);
+            await _context.SaveChangesAsync();
+
+            var subject = "Password Reset OTP";
+            var body = $@"Dear User Your is{otpPlain}
+                       <p>This OTP will expire in {OtpValidity.TotalMinutes} minutes.</p>";
+
+            try
+            {
+                await _emailSender.SendEmailAsync(customer.Email, subject, body);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending OTP email to {Email}", customer.Email);
+                customer.OtpCode = null;
+                customer.OtpExpiry = null;
+                await _context.SaveChangesAsync();
+                return StatusCode(500, new { error = "Error sending email. Please try again later." });
+
+            }
+            return Ok(new { message = "If the Email Exist , OTP Has Been Sent." });
+        }
+
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
         {
-            var result = await _mediator.Send(new ResetPaswordCommand
+            if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.OtpCode) || string.IsNullOrWhiteSpace(dto.NewPassword))
             {
-                Token = dto.Token,
-                NewPassword = dto.NewPassword
-            });
-            return Ok(result);
+                return BadRequest(new { error = "Email, OTP and New Password are required" });
+            }
+            var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Email == dto.Email.Trim().ToLower());
+            if (customer == null)
+            {
+                return NotFound(new { error = "User Not Found" });
+            }
+            if (customer.OtpCode == null || customer.OtpExpiry == null)
+            {
+                return BadRequest(new { error = "No OTP Request Found. Please initiate a new password reset request." });
+            }
+            if (customer.OtpExpiry < DateTime.UtcNow)
+            {
+                return BadRequest(new { error = "OTP has expired. Please initiate a new password reset request." });
+            }
+            var isOtpValid = BCrypt.Net.BCrypt.Verify(dto.OtpCode, customer.OtpCode);
+            if (!isOtpValid)
+            {
+                return BadRequest(new { error = "Invalid Otp" });
+            }
+            var hash = new PasswordHasher<Customer>();
+            customer.Password =hash.HashPassword(customer, dto.NewPassword);
+            //clear Otp Fields
+            customer.OtpCode = null;
+            customer.OtpExpiry = null;
+            await _context.SaveChangesAsync();
+            try
+            {
+                var subject = "Password Reset Successful";
+                var body = "Dear User, Your password has been reset successfully." +
+                    " If you did not initiate this change, please contact support immediately.";
+                await _emailSender.SendEmailAsync(customer.Email, subject, body);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending password reset confirmation email to {Email}", customer.Email);
+            }
+            return Ok(new { message = "Password has been reset successfully." });
+
         }
 
-        [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommand dto)
-        {
-            var result = await _mediator.Send(new ForgotPasswordCommand()
-            {
-                Email = dto.Email
-            });
-            return Ok(result);
-        }
+
+
+
+
 
     }
 }
+
 
 
 

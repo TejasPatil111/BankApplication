@@ -22,12 +22,14 @@ namespace Bank.Infrastructure.EmailService
         {
 
             {
-                var fromEmail = "rp1767407@gmail.com"; // Use your email
-                var password = "ogrlijlldntvpzld";      // Use an app-specific password (not real password)
+                var fromEmail = _config["EmailSettings:From"]; // Use your email
+                var password = _config["EmailSettings:Password"];      // Use an app-specific password (not real password)
+                var host = _config["EmailSettings:SmtpHost"];
+                var port = int.Parse(_config["EmailSettings:SmtpPort"]);
 
-                using (var smtp = new SmtpClient("smtp.gmail.com"))
+                using (var smtp = new SmtpClient(host))
                 {
-                    smtp.Port = 587;
+                    smtp.Port = port;
                     smtp.Credentials = new NetworkCredential(fromEmail, password);
                     smtp.EnableSsl = true;
 
@@ -36,7 +38,15 @@ namespace Bank.Infrastructure.EmailService
                         IsBodyHtml = true
                     };
 
-                    await smtp.SendMailAsync(message);
+                    try
+                    {
+                        await smtp.SendMailAsync(message);
+                    }
+                    catch (SmtpException ex)
+                    {
+                        Console.WriteLine($"SMTP Error: {ex.Message}");
+                        throw; // or log it using ILogger
+                    }
                 }
             }
         }

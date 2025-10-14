@@ -29,15 +29,15 @@ namespace Bank.Application.AuthDto.Auth.Handler
             }
             //getreting Token
             var token = Guid.NewGuid().ToString();
-            customer.PasswordResetToken = token;
-            customer.TokenExpiry = DateTime.UtcNow.AddHours(1);
+            customer.OtpCode = token;
+            customer.OtpExpiry = DateTime.UtcNow.AddHours(1);
             await _repo.UpdateAsync(customer);
-            
-            var resetlink = $"https://yourfrontend.com/reset-password?token={token}";
+
+            var resetLink = $"http://localhost:4200/reset-password?token={token}&email={customer.Email}";
 
             //send email
-            await _emailSender.SendEmailAsync(customer.Email, "Password Reset",
-                $" Dear {customer.Name},\nClick the link to reset your password: {resetlink}");
+            await _emailSender.SendEmailAsync(customer.Email, "Reset Password",
+                $" Dear {customer.Name},\nClick the link to reset your password: {resetLink}");
             return "If the Email Exist , Reset Link Has Been Sent.";
         }
     }

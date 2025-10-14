@@ -24,15 +24,15 @@ namespace Bank.Application.AuthDto.Auth.Handler
         public async Task<string> Handle(ResetPaswordCommand request, CancellationToken cancellationToken)
         {
             var customer =await _repo.GetCustomerByTokenAsync(request.Token);
-            if (customer == null || customer.TokenExpiry < DateTime.UtcNow)
+            if (customer == null || customer.OtpExpiry < DateTime.UtcNow)
             {
                 throw new Exception("Invalid or Expired Token");
             }
             // hash newpass
             customer.Password = _passwordHasher.HashPassword(null, request.NewPassword);
             //claer token
-            customer.PasswordResetToken = null;
-            customer.TokenExpiry = null;
+            customer.OtpCode = null;
+            customer.OtpExpiry = null;
             await _repo.UpdateAsync(customer);
 
             return "Password reset successful.";

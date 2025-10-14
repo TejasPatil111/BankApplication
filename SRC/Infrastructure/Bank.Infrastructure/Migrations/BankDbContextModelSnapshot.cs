@@ -166,10 +166,13 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("OtpCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordResetToken")
+                    b.Property<DateTime?>("OtpExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
@@ -179,9 +182,6 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("TokenExpiry")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("id");
 
                     b.ToTable("Customers");
@@ -190,7 +190,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 10, 10, 11, 48, 21, 704, DateTimeKind.Utc).AddTicks(619),
+                            CreatedOnUtc = new DateTime(2025, 10, 13, 10, 32, 9, 906, DateTimeKind.Utc).AddTicks(6458),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -201,7 +201,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 10, 10, 11, 48, 21, 704, DateTimeKind.Utc).AddTicks(623),
+                            CreatedOnUtc = new DateTime(2025, 10, 13, 10, 32, 9, 906, DateTimeKind.Utc).AddTicks(6464),
                             Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",

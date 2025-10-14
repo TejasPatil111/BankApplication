@@ -19,8 +19,8 @@ namespace Bank.Domain.Entities
         public bool KeyStatus { get; set; }
         public CustomerStaus Status { get; set; }
         public DateTime CreatedOnUtc { get; set; }
-        public string? PasswordResetToken { get; set; }
-        public DateTime? TokenExpiry { get; set; }
+        public string? OtpCode { get; set; }
+        public DateTime? OtpExpiry { get; set; }
 
     }
 }

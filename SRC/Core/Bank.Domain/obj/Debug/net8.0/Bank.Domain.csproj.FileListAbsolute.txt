@@ -12,3 +12,4 @@ C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\refint\
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.pdb
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.genruntimeconfig.cache
 C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\ref\Bank.Domain.dll
+C:\Users\user\source\Practise\Bank\SRC\CORE\Bank.Domain\obj\Debug\net8.0\Bank.Domain.csproj.AssemblyReference.cache

@@ -98,7 +98,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Bank.Application.AuthDto.Auth.Commands.ForgotPasswordCommand",
+        "Type": "Bank.Application.AuthDto.Auth.Dtos.ForgotPaswordDto",
         "IsRequired": true
       }
     ],
