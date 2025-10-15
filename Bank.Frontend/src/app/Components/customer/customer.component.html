@@ -1,4 +1,6 @@
 <div class="d-flex justify-content-end">
+     <h3 *ngIf="role === 'Admin'">All Customers</h3>
+  <h3 *ngIf="role !== 'Admin'">Your Information</h3>
     <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal" data-bs-target="#customerModal" (click)="openAddModal()">+Add
         Customer</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -13,9 +13,18 @@ import { CustomerService } from '../../Services/customer.service';
   styleUrls: ['./accounts.component.css',]
 })
 export class AccountsComponent implements OnInit {
+  role:string|null=''
+  customerId:string|null=''
   ngOnInit(): void {
+    this.role= localStorage.getItem('CustomerRole'),
+    this.customerId=localStorage.getItem('CustomerId')
+    if(this.role==='Admin'){
+      debugger
     this.loadAccounts();
+    }
+
     this.loadCustomer();
+
   }
 
   // account:AccountDto[] =[];

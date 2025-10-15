@@ -26,9 +26,17 @@ export class CustomerComponent implements OnInit {
     private loginService:LoginService,
     
   ) { }
-
+      role:string|null='';
+      CustomerId:string|null='';
   ngOnInit(): void {
-    this.loadCustomers();
+    this.role = localStorage.getItem('CustomerRole');
+    this.CustomerId=localStorage.getItem('CustomerId');
+    if(this.role==='Admin'){
+      this.loadCustomers();
+    }
+    if(this.role==='User'){
+      this.loadCustomerById(this.CustomerId)
+    }
   }
 
   //for update
@@ -60,6 +68,16 @@ export class CustomerComponent implements OnInit {
     this.CusService.getAllCustomer().subscribe({
       next: (res) => this.customer = res,
       error: (err) => console.error(err)
+    });
+  }
+
+  loadCustomerById(id:any){
+  
+    this.CusService.getCustomerId(id).subscribe({
+      next:(res)=>{
+        this.customer = [res];
+      },
+      error:(err)=>console.error(err)
     });
   }
 

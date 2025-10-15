@@ -9,9 +9,15 @@ import { Router, RouterModule, RouterOutlet } from "@angular/router";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  CustomerName :string|null='';
+  ngOnInit(): void {
+    this.CustomerName = localStorage.getItem('CustomerName')
+  }
 route=inject(Router)
+
   Logout(){
     localStorage.clear();
     this.route.navigateByUrl('');
   }
+
 }

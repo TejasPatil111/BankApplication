@@ -55,7 +55,8 @@ UserLogin(){
       const decoded :any=jwtDecode(res.jwtToken) ;
       localStorage.setItem("email",decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]); 
       localStorage.setItem("CustomerRole", decoded.CustomerRole)
-      localStorage.setItem("customerId", decoded.CustomerId); 
+      localStorage.setItem("CustomerId", decoded.CustomerId); 
+      localStorage.setItem("CustomerName", decoded.CustomerName); 
       this.router.navigateByUrl('/customer');
     },
     error:(error)=>{

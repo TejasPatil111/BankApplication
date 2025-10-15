@@ -1,9 +1,10 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="navbar-brand">
-    <h4>MyApp</h4>
+    <h4>Banking App</h4>
   </div>
-  
+  <div>
+  </div>
   <div class="container-fluid">
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,12 +34,15 @@
         </li>
       </ul> -->
     </div>
+    <div>
+      <h6>Welcome,{{CustomerName}}&nbsp;&nbsp;&nbsp;&nbsp;</h6>
+    </div>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <button (click)="Logout()" class="btn btn-primary">Logout</button>
         </li>
       </ul>
-  </div>
+    </div>
 </nav>
 <hr>
 <router-outlet></router-outlet>

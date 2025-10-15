@@ -24,30 +24,32 @@ login(){
 this.route.navigateByUrl('/');
   }
 
-private forgotPasswordDto():forgotPasswordDto{
-  return {
+
+  ForgotPassObj: forgotPasswordDto ={
     email:''
-  }  
-  
-}
-  ForgotPassObj: forgotPasswordDto = this.forgotPasswordDto();
-  forgotpass(){
+  }
+    forgotpass(){
     this.isLoading=true;
-    this.forgotPassSrc.forgotpassword(this.ForgotPassObj).subscribe(()=>{
+    this.forgotPassSrc.forgotpassword(this.ForgotPassObj).subscribe({
+      next:() =>{
       alert("Otp Has Been Sent To Your Email");
+      this.ResetPassObj.email = this.ForgotPassObj.email
       this.step=2;
       this.isOtpVissible=true;
       this.isLoading=false;
-    })
-  }
-  resetPassObj (){
-    return {
-      email:'',
-      otpCode:'',
-      newPassword:''
+    },error:(err)=>{
+      console.error('Error while Sending Otp:', err)
+      this.isLoading=false;
     }
+  });
   }
-ResetPassObj:resetPasswordDto = this.resetPassObj();
+  
+ResetPassObj:resetPasswordDto={
+email:'',
+otpCode:'',
+newPassword:'',
+
+}
   resetPassword(){
     this.isLoading=true;
     this.forgotPassSrc.resetPassword(this.ResetPassObj).subscribe(()=>{

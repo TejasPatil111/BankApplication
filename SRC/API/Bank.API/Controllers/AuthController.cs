@@ -66,7 +66,8 @@ namespace Bank.API.Controllers
             {
                 new Claim(ClaimTypes.Email, logindto.Email),
                 new Claim("CustomerRole",loginuser.Role),
-                new Claim("CustomerId",loginuser.id.ToString())
+                new Claim("CustomerId",loginuser.id.ToString()),
+                new Claim("CustomerName",loginuser.Name)
             };
             var token = new JwtSecurityToken(
                 issuer: _cofig["Jwt:Issuer"],

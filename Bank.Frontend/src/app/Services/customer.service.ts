@@ -28,4 +28,7 @@ delete(id : number):Observable<void>{
  return this.http.delete<void>( `${API_URL}/${id}`);
 }
 
+getCustomerId(id:number):Observable<any>{
+  return this.http.get<any>(`${API_URL}/${id}`)
+}
 }
