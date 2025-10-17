@@ -126,7 +126,7 @@ namespace Bank.Infrastructure.Repositories
         //    return dto;
 
         //}
-        public async Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction()
+        public async Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction(int ? customerId =null)
         {
             var result = new List<GetAccountNoWithTransactionDto>();
 
@@ -135,6 +135,8 @@ namespace Bank.Infrastructure.Repositories
                 using (SqlCommand cmd = new SqlCommand("GetAccountNoWithTransaction", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    //Add Parameter only if id provided 
+                    cmd.Parameters.AddWithValue("@CustomerId", (object?)customerId ?? DBNull.Value);
 
                     await conn.OpenAsync();
                     using (var reader = await cmd.ExecuteReaderAsync())
@@ -145,6 +147,7 @@ namespace Bank.Infrastructure.Repositories
                             {
                                 id = Convert.ToInt32(reader["Id"]),
                                 AccountNo = reader["AccountNo"].ToString(),
+                                CustomerId = Convert.ToInt32(reader["CustomerId"]),
                                 AccountHolderName = reader["AccountHolderName"].ToString(),
                                 AccountType = reader["AccountType"].ToString(),
                                 Balance = reader.GetDecimal(reader.GetOrdinal("Balance")),

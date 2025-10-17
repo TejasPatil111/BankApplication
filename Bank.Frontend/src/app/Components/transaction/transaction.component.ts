@@ -14,8 +14,18 @@ import { AccountDto } from '../accounts/accountDto';
   styleUrl: './transaction.component.css'
 })
 export class TransactionComponent  implements OnInit{
+  role:string|null ='';
+  customerId:string|null='';
+
   ngOnInit(): void {
+    this.role = localStorage.getItem('CustomerRole')
+    this.customerId=localStorage.getItem('CustomerId')
+    if(this.role ==='Admin'){
     this.getAllTransaction();
+    }
+    if(this.role ==='User'){
+      this.getTransactionByCustId(this.customerId);
+    }
     this.getAccount();
   }
   isEditMode:Boolean=false;
@@ -44,6 +54,16 @@ this.TransferService.getTransaction().subscribe({
   error:(err)=> console.error(err)
 })
 }
+getTransactionByCustId(id:any){
+  debugger
+  this.TransferService.gettransactionByCustomerId(id).subscribe({
+    next:(res)=>{
+      console.log("Api Response",res)
+      this.Transfers =Array.isArray(res)? res:[res];
+    },
+    error:(err)=>console.error(err)
+  })
+}
 
 SendMoney(){
   
@@ -52,7 +72,7 @@ SendMoney(){
   next : (res:any)=>{
   alert(res.message);
   console.log(res)
-  this.getAllTransaction();
+  this.getTransactionByCustId(this.customerId);
 },
 error:(err)=>{
   console.error(err);

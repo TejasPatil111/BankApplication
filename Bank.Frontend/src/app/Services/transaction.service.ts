@@ -25,5 +25,9 @@ export class TransactionService {
 
   Delete(id:number):Observable<any>{
     return this.http.delete(`${apiurl}/Transaction/${id}`);
+  }
+  gettransactionByCustomerId(id:number):Observable<any>{
+    
+    return this.http.get(`${apiurl}/Transaction/GetAccountNoWithTransaction?customerId=${id}`)
   } 
 }

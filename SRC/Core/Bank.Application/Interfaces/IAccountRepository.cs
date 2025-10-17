@@ -15,6 +15,6 @@ namespace Bank.Application.Interfaces
         Task<Account> AddAsync(Account account);
         Task<Account> UpdateAsync(Account account);
         Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<AccountWithCustomerDto>> GetAccountsWithCustomersAsync();
+        Task<IEnumerable<AccountWithCustomerDto>> GetAccountsWithCustomersAsync(int? cutomerId=null);
     }
 }

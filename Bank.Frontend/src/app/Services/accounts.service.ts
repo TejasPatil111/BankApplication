@@ -26,4 +26,8 @@ export class AccountsService {
   deleteAccount(id:number):Observable<void>{
     return this.http.delete<void>(`${apiurl}/Account/${id}`);
   }
+  
+  getAccountByIdSrc(id :number):Observable<any>{
+    return this.http.get(`${apiurl}/Account/with-customers?customerId=${id}`)
+  }
 }

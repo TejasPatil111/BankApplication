@@ -18,7 +18,7 @@
         Task<CreateTransferDto> SendMoneyAsync(CreateTransferDto dto);
         Task AddAccAsync(Transfer transfer);
 
-        Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction();
+        Task<IEnumerable<GetAccountNoWithTransactionDto>> GetAccountNoWithTransaction(int ? customeerId = null);
         Task<ReverseTransactionDto> ReverseTransactionAsync(int transactionId, string reference = null);
     }
 }

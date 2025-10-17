@@ -56,7 +56,9 @@ namespace Bank.API.Controllers
             var hash = new PasswordHasher<Customer>();
             var result = hash.VerifyHashedPassword(loginuser, loginuser.Password, logindto.Password);
 
-
+            if (result == PasswordVerificationResult.Failed) {
+                return Unauthorized("Incorrect Email Or Password ");
+            }
 
 
             //genrate JWT token

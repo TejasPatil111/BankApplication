@@ -125,15 +125,26 @@ namespace Bank.Infrastructure.Repositories
 
         }
 
-        public async Task<IEnumerable<AccountWithCustomerDto>> GetAccountsWithCustomersAsync()
+        public async Task<IEnumerable<AccountWithCustomerDto>> GetAccountsWithCustomersAsync(int ? customerId = null )
         {
             try
             {
-                var results = await _context.AccountsWithCustomersDto
-                    .FromSqlRaw("EXEC GetAccountsWithCustomers")
-                    .ToListAsync();
+                string sql;
+                if (customerId.HasValue)
+                {
+                    sql = "EXEC GetAccountsWithCustomers @CustomerId ={0}";
+                    return await _context.AccountsWithCustomersDto
+                    .FromSqlRaw(sql, customerId.Value).ToListAsync();
+                }
 
-                return results;
+                else
+                {
+                    sql = "EXEC GetAccountsWithCustomers";
+                    return await _context.AccountsWithCustomersDto
+                        .FromSqlRaw(sql)
+                        .ToListAsync();
+
+                }
             }
             catch (Exception ex)
             {

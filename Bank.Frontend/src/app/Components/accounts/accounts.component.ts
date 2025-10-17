@@ -22,7 +22,9 @@ export class AccountsComponent implements OnInit {
       debugger
     this.loadAccounts();
     }
-
+    if(this.role === 'User'){
+      this.loadCustomerById(this.customerId);
+    }
     this.loadCustomer();
 
   }
@@ -68,6 +70,15 @@ export class AccountsComponent implements OnInit {
       next:(res)=>this.getAccDto = res,
       error:(err)=> console.error(err)
     });
+  }
+  loadCustomerById (id:any){
+    this.AccService.getAccountByIdSrc(id).subscribe({
+      next:(res)=>{
+        console.log("Api response",res) ;
+        this .withcustomer= Array.isArray(res)? res:[res];
+      },
+      error:(err)=>console.error(err)
+    })
   }
 //update and create acc
   editAccount(c: any) {

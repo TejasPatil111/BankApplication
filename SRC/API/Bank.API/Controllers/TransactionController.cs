@@ -66,10 +66,18 @@ namespace Bank.API.Controllers
 
 
         [HttpGet("GetAccountNoWithTransaction")]
-        public async Task<IActionResult> GetAccountNoWithTransaction()
+        public async Task<IActionResult> GetAccountNoWithTransaction([FromQuery] int ? customerId = null)
         {
-            var transactions = await _repo.GetAccountNoWithTransaction();
-            return Ok(transactions);
+            try
+            {
+                var transactions = await _repo.GetAccountNoWithTransaction(customerId);
+                return Ok(transactions);
+            }
+            
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"Internal server Error:{ex.Message} ");
+            }
         }
 
         [HttpPost("reverse")]

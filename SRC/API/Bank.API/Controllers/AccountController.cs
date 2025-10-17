@@ -76,11 +76,11 @@ namespace Bank.API.Controllers
 
         // New API endpoint to get accounts joined with customers using SP
         [HttpGet("with-customers")]
-        public async Task<IActionResult> GetAccountsWithCustomers()
+        public async Task<IActionResult> GetAccountsWithCustomers([FromQuery] int? customerId = null)
         {
             try
             {
-                var accountsWithCustomers = await _accountRepository.GetAccountsWithCustomersAsync();
+                var accountsWithCustomers = await _accountRepository.GetAccountsWithCustomersAsync(customerId);
                 return Ok(accountsWithCustomers);
             }
             catch (Exception ex)

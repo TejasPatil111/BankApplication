@@ -32,9 +32,11 @@ export class CustomerComponent implements OnInit {
     this.role = localStorage.getItem('CustomerRole');
     this.CustomerId=localStorage.getItem('CustomerId');
     if(this.role==='Admin'){
+      debugger
       this.loadCustomers();
     }
     if(this.role==='User'){
+      debugger
       this.loadCustomerById(this.CustomerId)
     }
   }
@@ -65,6 +67,7 @@ export class CustomerComponent implements OnInit {
   
 
   loadCustomers() {
+    debugger
     this.CusService.getAllCustomer().subscribe({
       next: (res) => this.customer = res,
       error: (err) => console.error(err)
@@ -72,7 +75,7 @@ export class CustomerComponent implements OnInit {
   }
 
   loadCustomerById(id:any){
-  
+  debugger
     this.CusService.getCustomerId(id).subscribe({
       next:(res)=>{
         this.customer = [res];

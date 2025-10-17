@@ -10,6 +10,7 @@ namespace Bank.Application.Features.Transfers.Dto
     {
         public int id { get; set; }
         public string AccountNo { get; set; }
+        public int CustomerId { get; set; }
         public string AccountHolderName { get; set; }
         public string AccountType { get; set; }
         public decimal Balance { get; set; }
