@@ -21,8 +21,9 @@ namespace Bank.Domain.Entities
         public DateTime OpendOnUtc { get; set; }
         public DateTime? ClosedOnUtc { get; set; }
         public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+        public string pincode { get; set; }
 
-        
+
 
         public void Deposit(decimal amount)
         {

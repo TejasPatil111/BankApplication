@@ -152,6 +152,35 @@
         }
       }
     },
+    "/api/Account/CheckBalance": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PinCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/Login": {
       "post": {
         "tags": [
@@ -801,6 +830,10 @@
             "type": "string",
             "format": "byte",
             "nullable": true
+          },
+          "pincode": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -925,6 +958,10 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "accountNo": {
+            "type": "string",
+            "nullable": true
           },
           "name": {
             "type": "string",

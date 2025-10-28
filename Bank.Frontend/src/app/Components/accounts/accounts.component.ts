@@ -1,6 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { AccountsService } from '../../Services/accounts.service';
-import { AccountDto, CreateAccountDto, withCustomerDto } from './accountDto';
+import { AccountBalanceResponse, AccountDto, CheckBalanceDto, CreateAccountDto, withCustomerDto } from './accountDto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomerService } from '../../Services/customer.service';
@@ -15,11 +15,13 @@ import { CustomerService } from '../../Services/customer.service';
 export class AccountsComponent implements OnInit {
   role:string|null=''
   customerId:string|null=''
+  pinCode!:string;
+  errorMessage='';
   ngOnInit(): void {
     this.role= localStorage.getItem('CustomerRole'),
     this.customerId=localStorage.getItem('CustomerId')
     if(this.role==='Admin'){
-      debugger
+      
     this.loadAccounts();
     }
     if(this.role === 'User'){
@@ -115,4 +117,27 @@ update(){
     });
   }
  
+  request:CheckBalanceDto={customerId:0,pinCode:''};
+  accountData?:AccountBalanceResponse;
+  message:string='';
+  isLoading=false;
+CheckBalance():void{
+  this.isLoading=true;
+  this.accountData=undefined;
+  this.message='';
+
+if(!this.customerId||!this.pinCode){
+this.errorMessage='please enter both customer Id and 4 digit Pin';
+return;
+}
+this.AccService.checkBalanceServie(this.request.customerId,this.request.pinCode).subscribe({
+  next:(response)=>{
+    this.isLoading = false;
+  },error:(error)=>{
+    this.message = error.error?.message ?? 'Invalid Customer Id Or Pin Code';
+    this.isLoading=false;
+  }
+})
+}
+  
 }

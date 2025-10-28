@@ -49,3 +49,17 @@ id: number,
   rowVersion: string
 
 }
+
+
+export interface CheckBalanceDto {
+  customerId: number;
+  pinCode: string;
+}
+
+export interface AccountBalanceResponse {
+  accountId: number;
+  accountNo: string;
+  customerName: string;
+  accountType: number;
+  balance: number;
+}

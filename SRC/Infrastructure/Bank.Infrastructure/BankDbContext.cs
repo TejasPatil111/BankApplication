@@ -1,7 +1,9 @@
 ﻿using Bank.Application.Features.Account.AccountWithCustomerDto;
+using Bank.Application.Features.Account.Dtos;
 using Bank.Application.Features.Transfers.Dto;
 using Bank.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Bank.Infrastructure
 {
@@ -16,6 +18,7 @@ namespace Bank.Infrastructure
         public DbSet<Money> Money { get; set; }
         public DbSet<AccountWithCustomerDto> AccountsWithCustomersDto { get; set; }
         public DbSet<GetAccountNoWithTransactionDto> GetAccountNoWithTransactionDto { get; set; }
+        public DbSet<CheckBalanceDto> CheckBalanceDto { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,7 +58,7 @@ namespace Bank.Infrastructure
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BankDbContext).Assembly);
 
-           
+
             // Register keyless entity for DTO
             //modelBuilder.Entity<AccountWithCustomerDto>(entity =>
             //{
@@ -68,7 +71,7 @@ namespace Bank.Infrastructure
             //    entity.Property(e => e.CustomerEmail);
             //    // Map other Customer properties similarly
             //});
-        
+            modelBuilder.Entity<CheckBalanceDto>().HasNoKey();
 
 
     }

@@ -14,6 +14,7 @@ export class LoginService {
   constructor(private http:HttpClient,
     private route:Router
   ) {}
+  
     userRegister(data : RegisterDto):Observable<any>{
       return this.http.post(`${apiurl}/Auth/Register`, data)
     }

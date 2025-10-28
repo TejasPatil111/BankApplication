@@ -32,11 +32,11 @@ export class CustomerComponent implements OnInit {
     this.role = localStorage.getItem('CustomerRole');
     this.CustomerId=localStorage.getItem('CustomerId');
     if(this.role==='Admin'){
-      debugger
+     
       this.loadCustomers();
     }
     if(this.role==='User'){
-      debugger
+      
       this.loadCustomerById(this.CustomerId)
     }
   }
@@ -46,6 +46,7 @@ export class CustomerComponent implements OnInit {
     return{
     id: 0,
     name: '',
+    // accountNo:'',
     email: '',
     password: '',
     keyStatus: true,
@@ -59,15 +60,18 @@ export class CustomerComponent implements OnInit {
     name: '',
     email: '',
     password: '',
+    role:'',
     keyStatus: true,
     status: 1,
-    createdOnUtc:new Date()
+    createdOnUtc:new Date(),
+    otpCode:'',
+    otpExpiry:new Date()
     };
   }
   
 
   loadCustomers() {
-    debugger
+  
     this.CusService.getAllCustomer().subscribe({
       next: (res) => this.customer = res,
       error: (err) => console.error(err)
@@ -75,7 +79,7 @@ export class CustomerComponent implements OnInit {
   }
 
   loadCustomerById(id:any){
-  debugger
+ 
     this.CusService.getCustomerId(id).subscribe({
       next:(res)=>{
         this.customer = [res];
@@ -104,7 +108,7 @@ export class CustomerComponent implements OnInit {
   //register new 
 regObj : RegisterDto = new RegisterDto();  
 onRegister(){
-  debugger
+  
   console.log("Sending Register Payload: ", this.regObj);
 this.loginService.userRegister(this.regObj).subscribe({
   next:(res:any)=>{
@@ -140,7 +144,7 @@ error:(error)=>{
 
     }
     else{
-      debugger;
+      
       this.CusService.create(this.newReg).subscribe(()=>{
         this.loadCustomers();
         

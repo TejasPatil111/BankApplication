@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccountDto, CreateAccountDto } from '../Components/accounts/accountDto';
+import {  AccountBalanceResponse, CheckBalanceDto, CreateAccountDto } from '../Components/accounts/accountDto';
 import { apiurl } from '../Constatnt/Constants';
 import { Observable } from 'rxjs';
 
@@ -29,5 +29,10 @@ export class AccountsService {
   
   getAccountByIdSrc(id :number):Observable<any>{
     return this.http.get(`${apiurl}/Account/with-customers?customerId=${id}`)
+  }
+  
+  checkBalanceServie(customerid:number,PinCode: string):Observable<AccountBalanceResponse>{
+const params = new HttpParams().set('CustomerId',customerid).set('PinCode',PinCode)
+    return this.http.get<AccountBalanceResponse>(`${apiurl}/CheckBalance`,{params})
   }
 }

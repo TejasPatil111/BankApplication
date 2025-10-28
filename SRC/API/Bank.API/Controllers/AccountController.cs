@@ -42,7 +42,6 @@ namespace Bank.API.Controllers
         {
 
             account.OpendOnUtc = DateTime.UtcNow;
-
             var created = await _accountRepository.AddAsync(account);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
@@ -88,9 +87,26 @@ namespace Bank.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("CheckBalance")]
+        public async Task<IActionResult> GetBalance( int CustomerId, string PinCode)
+        {
+            try
+            {
+                var checkBalance = await _accountRepository.CheckBalance(CustomerId, PinCode);
+                if (checkBalance == null)
+                {
+                    return NotFound(new { message = "Invalid Customer Id or Pin" });
+                }
+                return Ok(checkBalance);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error:{ex.Message}");
+            }
+        }
     }
 
-    }
+}
 
 
 

@@ -1,11 +1,11 @@
 <div class="d-flex justify-content-end">
-    <button class="add-btn btn btn-outline-primary margin-left mb-2" data-bs-toggle="collapse"
-    data-bs-target="#reverse-container">
-    Reverse Transaction <i class="fa-solid fa-angle-down"></i>
+    <button *ngIf="role==='Admin'" class="add-btn btn btn-outline-primary margin-left mb-2" data-bs-toggle="collapse"
+        data-bs-target="#reverse-container">
+        Reverse Transaction <i class="fa-solid fa-angle-down"></i>
     </button>
     <hr>
-    <button type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal"
-    data-bs-target="#transactionModal">+Tansfer Money</button>
+    <button  type="button" class="btn btn-primary p-sm-2" data-bs-toggle="modal"
+        data-bs-target="#transactionModal">+Tansfer Money</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
@@ -60,9 +60,9 @@
             <th>Amount</th>
             <th>FromAccount</th>
             <th>ToACcount</th>
-            <th>CancelTransactionNo</th>
-            <th>Reason</th>
-            <th>Delete</th>
+            <th *ngIf="role==='Admin'">CancelTransactionNo</th>
+            <th *ngIf="role==='Admin'">Reason</th>
+            <th *ngIf="role==='Admin'">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -78,12 +78,11 @@
             <td scope="row">{{t.amount}}</td>
             <td scope="row">{{t.fromAC}}</td>
             <td scope="row">{{t.toAC}}</td>
-            <td scope="row">{{t.parentTransactionId}}</td>
-            <td scope="row">{{t.transactionType}}</td>
-            <!-- <td  scope="row">{{a.opendOnUtc}}</td>
-                <td  scope="row" >{{a.closedOnUtc}}</td> -->
-            <td><button class="btn btn-danger"  (click)="deleteTransaction(t.id)">Delete</button></td>
-            <!-- <td  scope="row">{{a.rowVersion}}</td>            -->
+            <td scope="row" *ngIf="role==='Admin'">{{t.parentTransactionId}}</td>
+            <td scope="row" *ngIf="role==='Admin'">{{t.transactionType}}</td>
+           
+            <td><button *ngIf="role==='Admin'" class="btn btn-danger" (click)="deleteTransaction(t.id)">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -102,13 +101,15 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="customer">From AccountNo</label>
+                            <label for="fromAccountId">From Account</label>
                             <select [(ngModel)]="transfer.fromAccountId" name="fromAccountId" id="fromAccountId"
-                                class="form-control">
+                                class="form-control" disabled>
                                 <option value="" disabled selected>Select Account</option>
-                                <option *ngFor="let a of getAccountsDto" [value]="a.id">
+                                <ng-container *ngFor="let a of getAccountsDto" >
+                                <option *ngIf="a.customerId === loggedInCustomerId" [value]="a.id">
                                     {{a.customerName}}:({{a.accountNo}})
                                 </option>
+                                </ng-container>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -159,11 +160,14 @@
                             <div class="mb-3">
                                 <label for="customer">From AccountNo</label>
                                 <select [(ngModel)]="transfer.fromAccountId" name="fromAccountId" id="fromAccountId"
-                                    class="form-control">
+                                    class="form-control" disabled="">
                                     <option value="" disabled selected>Select Account</option>
-                                    <option *ngFor="let a of getAccountsDto" [value]="a.id">
+                                    <ng-container *ngFor="let a of getAccountsDto">
+                                    
+                                    <option  [value]="a.id" *ngIf="a.customerId === loggedInCustomerId">
                                         {{a.customerName}}:({{a.accountNo}})
                                     </option>
+                                    </ng-container>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -180,10 +184,7 @@
                                 <label>Amount</label>
                                 <input type="number" [(ngModel)]="transfer.amount" name="amount" class="form-control" />
                             </div>
-                            <!-- <div class="mb-3">
-                            <label>Currency</label>
-                            <input type="text" [(ngModel)]="transfer.currency" name="currency" class="form-control" />
-                        </div> -->
+                            
                             <div class="mb-3">
                                 <label>Refrence</label>
                                 <input type="text" [(ngModel)]="transfer.refrence" name="refrence"

@@ -4,6 +4,7 @@ using Bank.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    partial class BankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251023053108_FromAndToBalancecolumnInTransfer")]
+    partial class FromAndToBalancecolumnInTransfer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,10 +147,6 @@ namespace Bank.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("pincode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
@@ -197,7 +196,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 1,
-                            CreatedOnUtc = new DateTime(2025, 10, 23, 9, 58, 50, 933, DateTimeKind.Utc).AddTicks(8328),
+                            CreatedOnUtc = new DateTime(2025, 10, 23, 5, 31, 7, 485, DateTimeKind.Utc).AddTicks(7543),
                             Email = "tejas@gmail.com",
                             KeyStatus = true,
                             Name = "Tejas",
@@ -208,7 +207,7 @@ namespace Bank.Infrastructure.Migrations
                         new
                         {
                             id = 2,
-                            CreatedOnUtc = new DateTime(2025, 10, 23, 9, 58, 50, 933, DateTimeKind.Utc).AddTicks(8336),
+                            CreatedOnUtc = new DateTime(2025, 10, 23, 5, 31, 7, 485, DateTimeKind.Utc).AddTicks(7552),
                             Email = "om123@gmail.com",
                             KeyStatus = true,
                             Name = "John Doe",

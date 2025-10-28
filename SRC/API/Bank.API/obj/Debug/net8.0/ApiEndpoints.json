@@ -80,6 +80,27 @@
   },
   {
     "ContainingType": "Bank.API.Controllers.AccountController",
+    "Method": "GetBalance",
+    "RelativePath": "api/Account/CheckBalance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CustomerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PinCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.AccountController",
     "Method": "GetAccountsWithCustomers",
     "RelativePath": "api/Account/with-customers",
     "HttpMethod": "GET",

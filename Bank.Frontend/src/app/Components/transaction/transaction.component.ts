@@ -5,21 +5,26 @@ import { TransactionService } from '../../Services/transaction.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { AccountDto } from '../accounts/accountDto';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule, ],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
 export class TransactionComponent  implements OnInit{
+[x: string]: any;
   role:string|null ='';
   customerId:string|null='';
+  loggedInCustomerId! :number;
 
   ngOnInit(): void {
     this.role = localStorage.getItem('CustomerRole')
     this.customerId=localStorage.getItem('CustomerId')
+    this.loggedInCustomerId =Number(localStorage.getItem('CustomerId'));
+    
     if(this.role ==='Admin'){
     this.getAllTransaction();
     }
@@ -35,15 +40,22 @@ export class TransactionComponent  implements OnInit{
   constructor(private TransferService : TransactionService,
               private AccountService : AccountsService,
   ){}
+
   //to get al transfer
 Transfers :any;
 //to get all acount
 getAccountsDto: any[] =[];
 getAccount(){
-  
   this.AccountService.getAccSr().subscribe({
     next:(res)=>{
       this.getAccountsDto= res;
+      //Find logged-in User in FrmAcc
+      const myAccount = this.getAccountsDto.find((a)=>a.customerId === this.loggedInCustomerId);
+      if(myAccount){
+        this.transfer.fromAccountId=myAccount.id;
+      }else{
+        console.warn('No Account Found For Loggd In Customeer');
+      }
     },
     error:(err) => console.error(err)
   })
@@ -55,7 +67,7 @@ this.TransferService.getTransaction().subscribe({
 })
 }
 getTransactionByCustId(id:any){
-  debugger
+  
   this.TransferService.gettransactionByCustomerId(id).subscribe({
     next:(res)=>{
       console.log("Api Response",res)
@@ -66,7 +78,7 @@ getTransactionByCustId(id:any){
 }
 
 SendMoney(){
-  
+  console.log('Trnasfer Request:',this.transfer)
   if(!this.transfer.fromAccountId || !this.transfer.toAccountId || !this.transfer.amount || !this.transfer.currency||this.transfer.refrence)
   this.TransferService.postTransaction(this.transfer).subscribe({
   next : (res:any)=>{
@@ -85,7 +97,7 @@ isLoading=false;
 request : ReverseTransactionRequest= {transactionId: 0, reference: ''};
 response?:ReverseTransactionResponse;
 revrseTransaction(){
-  debugger
+  
   if(!this.request.transactionId ){
   this.response ={success:false, message:'Please Enter Valid Transaction Id'}
 return;

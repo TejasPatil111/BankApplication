@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Bank.Application.AuthDto.Auth.Commands;
 using Bank.Application.AuthDto.Auth.Dtos;
 using Bank.Application.Interfaces;
 using Bank.Domain;

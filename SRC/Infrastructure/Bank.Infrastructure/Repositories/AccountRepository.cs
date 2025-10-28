@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Bank.Application.Exceptions;
 using Bank.Application.Features.Account.AccountWithCustomerDto;
+using Bank.Application.Features.Account.Dtos;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
@@ -31,7 +33,10 @@ namespace Bank.Infrastructure.Repositories
                 }
                 await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
-
+                //for unique and repeating Account No
+                account.AccountNo = "Acc" + account.Id.ToString("D4");
+                _context.Accounts.Update(account);
+                await _context.SaveChangesAsync();
                 return account;
 
 
@@ -152,7 +157,17 @@ namespace Bank.Infrastructure.Repositories
             }
         }
 
+        public async Task<CheckBalanceDto?> CheckBalance(int CustomerId, string PinCode)
+        {
+            var checkIdparam = new SqlParameter("@CustomerId", CustomerId);
 
+            var pinCodeparam = new SqlParameter("@PinCode", PinCode);
 
+            var result = await _context.Set<CheckBalanceDto>()
+                .FromSqlRaw("Exec SP_CheckBalanceByPinAndCustomer @CustomerId ,@PinCode", checkIdparam, pinCodeparam)
+                .ToListAsync();
+
+            return result.FirstOrDefault();
+        }
     }
 }

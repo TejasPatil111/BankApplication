@@ -18,6 +18,9 @@ namespace Bank.Domain.Entities
         public string? Refrence { get; set; }
         public int? ParentTransactionId { get; set; }
         public string TransactionType { get; set; } = "Normal";
+        public decimal FromBalanceAfter { get; set; }
+        public decimal ToBalanceAfter { get; set; }
+
         //optional self-refrencing relationship
         public Transfer? ParentTransaction { get; set; }
 

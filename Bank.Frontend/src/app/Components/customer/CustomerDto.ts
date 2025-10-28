@@ -7,4 +7,14 @@ export interface CustomerDto{
  status :Number;
 createdOnUtc : Date ;
 }
+export interface getCustomerById{
+ id :number;
+ name :string;
+ accountNo:string;
+ email : string;
+ password : string; 
+ keyStatus : boolean;
+ status :Number;
+createdOnUtc : Date ; 
+}
 

@@ -43,6 +43,7 @@ namespace Bank.Infrastructure.Repositories
 
             //custam exception
             var dataid = await _context.Customers.FindAsync(id);
+            
             if (dataid == null)
             {
 
