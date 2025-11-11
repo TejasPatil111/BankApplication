@@ -3,9 +3,11 @@ using Bank.Application.Features.Customer.Queries;
 using Bank.Application.Features.Transfers.Command;
 using Bank.Application.Interfaces;
 using Bank.Domain.Entities;
+using Bank.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.API.Controllers
 {
@@ -15,11 +17,13 @@ namespace Bank.API.Controllers
     {
         private readonly ICustomerRepsitory _customerRepository;
         private readonly IMediator _mediator;
+        private readonly BankDbContext _context;
 
-        public CustomerController(ICustomerRepsitory customerRepository, IMediator mediator)
+        public CustomerController(ICustomerRepsitory customerRepository, IMediator mediator,BankDbContext context)
         {
             _customerRepository = customerRepository;
             _mediator = mediator;
+            _context = context;
         }
 
         [HttpGet]
@@ -67,7 +71,19 @@ namespace Bank.API.Controllers
             return NoContent();
         }
 
-        
+
+        [HttpGet("CheckCustomerAccount/{customerId}")]
+        public async Task<IActionResult> CheckCustomerAccount(int customerId)
+        {
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.CustomerId == customerId);
+
+            if (account == null)
+                return Ok(new { hasAccount = false });
+
+            return Ok(new { hasAccount = true });
+        }
+
+
 
 
 

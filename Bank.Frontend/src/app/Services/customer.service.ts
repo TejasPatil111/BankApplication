@@ -31,4 +31,9 @@ delete(id : number):Observable<void>{
 getCustomerId(id:number):Observable<any>{
   return this.http.get<any>(`${API_URL}/${id}`)
 }
+CheckCustomer(customerId:number){
+  debugger
+return this.http.get<{hasAccount: boolean}>(`${API_URL}/CheckCustomerAccount/${customerId}`)
+}
+
 }

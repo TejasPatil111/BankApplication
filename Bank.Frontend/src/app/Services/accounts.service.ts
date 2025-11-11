@@ -31,8 +31,8 @@ export class AccountsService {
     return this.http.get(`${apiurl}/Account/with-customers?customerId=${id}`)
   }
   
-  checkBalanceServie(customerid:number,PinCode: string):Observable<AccountBalanceResponse>{
-const params = new HttpParams().set('CustomerId',customerid).set('PinCode',PinCode)
-    return this.http.get<AccountBalanceResponse>(`${apiurl}/CheckBalance`,{params})
+  checkBalanceService(customerid:number,PinCode: string):Observable<AccountBalanceResponse>{
+    const url = `${apiurl}/CheckBalance?CustomerId=${customerid}&PinCode=${PinCode}`
+    return this.http.get<AccountBalanceResponse>(url)
   }
 }

@@ -103,8 +103,6 @@ export class CustomerComponent implements OnInit {
       this.loadCustomers();
     });
   }
-
-
   //register new 
 regObj : RegisterDto = new RegisterDto();  
 onRegister(){
@@ -138,6 +136,7 @@ error:(error)=>{
   // }
   saveCustomer(){
     if(this.isEditMode){
+      
       this.CusService.update(this.newCustomer.id,this.newCustomer).subscribe(()=>{
         this.loadCustomers();
       });

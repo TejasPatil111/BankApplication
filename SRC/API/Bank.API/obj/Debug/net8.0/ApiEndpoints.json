@@ -250,6 +250,22 @@
   },
   {
     "ContainingType": "Bank.API.Controllers.CustomerController",
+    "Method": "CheckCustomerAccount",
+    "RelativePath": "api/Customer/CheckCustomerAccount/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Bank.API.Controllers.CustomerController",
     "Method": "UpdateCustomer",
     "RelativePath": "api/Customer/Update/{id}",
     "HttpMethod": "PUT",

@@ -60,14 +60,15 @@ getAccount(){
     error:(err) => console.error(err)
   })
 }
+
 getAllTransaction(){
 this.TransferService.getTransaction().subscribe({
   next:(res) => this.Transfers = res,
   error:(err)=> console.error(err)
 })
 }
+
 getTransactionByCustId(id:any){
-  
   this.TransferService.gettransactionByCustomerId(id).subscribe({
     next:(res)=>{
       console.log("Api Response",res)

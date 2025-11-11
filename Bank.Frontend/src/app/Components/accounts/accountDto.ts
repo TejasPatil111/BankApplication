@@ -46,7 +46,8 @@ id: number,
   currency: string, 
    opendOnUtc: Date,
   closedOnUtc: Date,
-  rowVersion: string
+  rowVersion: string,
+  pincode:string
 
 }
 

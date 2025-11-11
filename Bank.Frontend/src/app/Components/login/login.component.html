@@ -1,35 +1,51 @@
 <div class="login">
   <div class="form">
     <p>welcome</p>
-    <form *ngIf="!showRegisterForm" class="login-form">
-      <input [(ngModel)]="LoginObj.email" name="email" type="email" placeholder="email" autocomplete="new-email">
-      <input  [(ngModel)]="LoginObj.password" name="password"  type="password" placeholder="password"  autocomplete="new-password" required />
-      <button   class="button" (click)="UserLogin()" >login</button>
-    
+    <form *ngIf="!showRegisterForm" class="login-form" #loginForm="ngForm">
+      <input [(ngModel)]="LoginObj.email" name="email" type="email" placeholder="Email" autocomplete="new-email"
+        required email #loginEmail="ngModel" />
+      <div class="text-danger" *ngIf="loginEmail.invalid &&(loginEmail.dirty || loginEmail.touched)">
+        <small *ngIf="loginEmail.errors?.['required']">Email Is Rquired</small>
+        <small *ngIf="loginEmail.errors?.['email']">Plase Enter Valid Email Address</small>
+      </div>
+      <input [(ngModel)]="LoginObj.password" name="password" type="password" placeholder="password"
+        autocomplete="new-password" required minlength="8" #loginPwd="ngModel"/>
+        <div class="text-danger" *ngIf="loginPwd.invalid && (loginPwd.dirty || loginPwd.touched)">
+    <small *ngIf="loginPwd.errors?.['required']">Password is required</small>
+    <small *ngIf="loginPwd.errors?.['minlength']">Password must be at least 8 characters</small>
+  </div>
+      <button class="button" (click)="UserLogin()">login</button>
+
       <h6>don't have an account click on register?link <a href="forgotPassword">forgot password</a></h6>
-      <button (click)="ToggleForm()" > Register </button>
-      
-    </form>  
+      <button (click)="ToggleForm()"> Register </button>
+
+    </form>
     <!-- name -->
     <form *ngIf="showRegisterForm" #form="ngForm" class="register-form">
-      <input [(ngModel)]="regObj.name" #name="ngModel" required name ="name" type="text" placeholder="username" autocomplete="new-username">
+      <input [(ngModel)]="regObj.name" #name="ngModel" required name="name" type="text" placeholder="username"
+        autocomplete="new-username">
       <div class="text-danger">@if(name.errors?.['required']&& name.touched){
         <span>This is required</span>
-        }</div>
-        <!-- email -->
-      <input [(ngModel)]="regObj.email" #email="ngModel" required name="email" type="email" placeholder="email" autocomplete="new-email" >
+        }
+      </div>
+      <!-- email -->
+      <input [(ngModel)]="regObj.email" #email="ngModel" required name="email" type="email" placeholder="email"
+        autocomplete="new-email">
       <div class="text-danger">@if(email.errors?.['required']&& name.touched){
         <span>This is required</span>
-        }</div>
-        <!-- password -->
-      <input [(ngModel)]="regObj.password" #pwd="ngModel" required name="password"  type="password" placeholder="password" autocomplete="new-password">
-        <div class="text-danger">@if(pwd.errors?.['required']&& name.touched){
-        <span >This is required</span>
-        }</div>
-      
-      <button  type="button" [disabled]="form.invalid"  (click)="onRegister()" > Register </button>
-       <button   class="button" (click)="ToggleForm()" >login</button>
-      
-    </form>  
+        }
+      </div>
+      <!-- password -->
+      <input [(ngModel)]="regObj.password" #pwd="ngModel" required name="password" type="password"
+        placeholder="password" autocomplete="new-password">
+      <div class="text-danger">@if(pwd.errors?.['required']&& name.touched){
+        <span>This is required</span>
+        }
+      </div>
+
+      <button type="button" [disabled]="form.invalid" (click)="onRegister()"> Register </button>
+      <button class="button" (click)="ToggleForm()">login</button>
+
+    </form>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { AccountBalanceResponse, AccountDto, CheckBalanceDto, CreateAccountDto, 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomerService } from '../../Services/customer.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-accounts',
@@ -13,39 +14,41 @@ import { CustomerService } from '../../Services/customer.service';
   styleUrls: ['./accounts.component.css',]
 })
 export class AccountsComponent implements OnInit {
-  role:string|null=''
-  customerId:string|null=''
-  pinCode!:string;
-  errorMessage='';
+  role: string | null = '';
+  customerId: string | null = '';
+  pinCode!: string;
+  errorMessage = '';
   ngOnInit(): void {
-    this.role= localStorage.getItem('CustomerRole'),
-    this.customerId=localStorage.getItem('CustomerId')
-    if(this.role==='Admin'){
+    var bootstrap:any;
+    this.role = localStorage.getItem('CustomerRole'),
+    this.customerId = localStorage.getItem('CustomerId')
+    if (this.role === 'Admin') {
       
-    this.loadAccounts();
+      this.loadAccounts();
     }
-    if(this.role === 'User'){
+    if (this.role === 'User') {
       this.loadCustomerById(this.customerId);
     }
     this.loadCustomer();
-
+    if (this.role === 'User' && this.customerId) {
+      this.request.customerId = +this.customerId;
+    }
   }
 
-  // account:AccountDto[] =[];
 
   isEditMode = false;
   withcustomer: withCustomerDto[] = [];
-  getAccDto : any[]=[];
-
+  getAccDto: any[] = [];
+  
   newAccount: CreateAccountDto = this.getEmptyAccount();
 
   private getEmptyAccount(): CreateAccountDto {
     return {
-      id:0,
-      customerId:0,
+      id: 0,
+      customerId: 0,
       accountNo: '',
       accountType: 1,
-      status: 1 ,
+      status: 1,
       balance: 0,
       currency: 'INR',
       opendOnUtc: new Date(),
@@ -53,11 +56,13 @@ export class AccountsComponent implements OnInit {
       rowVersion: "AAAAAAAAVfM=",
       customerName: '',
       customerEmail: ''
+      
+     
     }
   }
-
+  
   constructor(private AccService: AccountsService,
-    private custSer:CustomerService
+    private custSer: CustomerService
   ) { }
   
   loadAccounts() {
@@ -67,77 +72,84 @@ export class AccountsComponent implements OnInit {
     });
   }
   //getCustomer
-  loadCustomer(){
+  loadCustomer() {
     this.custSer.getAllCustomer().subscribe({
-      next:(res)=>this.getAccDto = res,
-      error:(err)=> console.error(err)
+      next: (res) => this.getAccDto = res,
+      error: (err) => console.error(err)
     });
   }
-  loadCustomerById (id:any){
+  loadCustomerById(id: any) {
     this.AccService.getAccountByIdSrc(id).subscribe({
-      next:(res)=>{
-        console.log("Api response",res) ;
-        this .withcustomer= Array.isArray(res)? res:[res];
+      next: (res) => {
+        console.log("Api response", res);
+        this.withcustomer = Array.isArray(res) ? res : [res];
       },
-      error:(err)=>console.error(err)
+      error: (err) => console.error(err)
     })
   }
-//update and create acc
+  //update and create acc
   editAccount(c: any) {
     this.isEditMode = true;
     this.newAccount = { ...c };
   }
 
   create() {
+    debugger
     this.AccService.addAcount(this.newAccount).subscribe(() => {
       this.isEditMode = false;
       this.loadAccounts();
       this.newAccount = this.getEmptyAccount();
     })
   }
-update(){
-  this.AccService.updateAccount(this.newAccount.id,this.newAccount).subscribe(()=>{
-    this.isEditMode = false;
-    this.loadAccounts();
-    this.newAccount= this.getEmptyAccount();
-  })
-}
-
- saveAccount() {
-  if (this.isEditMode) {
-    this.update();
-  } else {
-    this.create();
+  update() {
+    debugger
+    this.AccService.updateAccount(this.newAccount.id, this.newAccount).subscribe(() => {
+      this.isEditMode = false;
+      this.loadAccounts();
+      this.newAccount = this.getEmptyAccount();
+    })
   }
-}
 
-  DeleteAccount(id:number){
-    this.AccService.deleteAccount(id).subscribe(()=>{
+  saveAccount() {
+    if (this.isEditMode) {
+      this.update();
+    } else {
+      this.create();
+    }
+  }
+  
+  DeleteAccount(id: number) {
+    this.AccService.deleteAccount(id).subscribe(() => {
       this.loadAccounts();
     });
   }
- 
-  request:CheckBalanceDto={customerId:0,pinCode:''};
-  accountData?:AccountBalanceResponse;
-  message:string='';
-  isLoading=false;
-CheckBalance():void{
-  this.isLoading=true;
-  this.accountData=undefined;
-  this.message='';
-
-if(!this.customerId||!this.pinCode){
-this.errorMessage='please enter both customer Id and 4 digit Pin';
-return;
-}
-this.AccService.checkBalanceServie(this.request.customerId,this.request.pinCode).subscribe({
-  next:(response)=>{
-    this.isLoading = false;
-  },error:(error)=>{
-    this.message = error.error?.message ?? 'Invalid Customer Id Or Pin Code';
-    this.isLoading=false;
-  }
-})
-}
   
+  
+  request: CheckBalanceDto = { customerId: 0, pinCode: '' };
+  accountData?: AccountBalanceResponse;
+  message: string = '';
+  isLoading = false;
+  
+  CheckBalance(): void {
+    debugger
+    this.isLoading = true;
+    this.accountData = undefined;
+    this.message = '';
+    if ( !this.pinCode||(!this.request.customerId && this.role=='Admin')) {
+      this.errorMessage = 'please enter both customer Id and 4 digit Pin';
+      this.isLoading=false;
+      return;
+    }
+    this.AccService.checkBalanceService(this.request.customerId, this.request.pinCode).subscribe({
+      next: (response) => {
+        this.accountData= response;
+        this.message='';
+        this.isLoading = false;
+      }, error: (error) => {
+        this.accountData=undefined;
+        this.message = error.error?.message ?? 'Invalid Customer Id Or Pin Code';
+        this.isLoading = false;
+      }
+    })
+  }
 }

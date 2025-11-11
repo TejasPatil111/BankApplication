@@ -6,6 +6,8 @@ import { HttpBackend, HttpClient } from "@angular/common/http";
 import { LoginService } from "../../Services/login.service";
 import { Route, Router, RouterOutlet, RouterLink } from "@angular/router";
 import { jwtDecode } from "jwt-decode";
+import { CustomerService } from "../../Services/customer.service";
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -25,7 +27,13 @@ export class LoginComponent {
   }
   constructor(private http: HttpClient,
   private loginService : LoginService,
+  private CustomerService :CustomerService, 
 private router:Router){}
+
+ngOnInit(): void {
+  this.loginForm
+  
+}
 
   // register data
 regObj : RegisterDto = new RegisterDto();  
@@ -57,11 +65,31 @@ UserLogin(){
       localStorage.setItem("CustomerRole", decoded.CustomerRole)
       localStorage.setItem("CustomerId", decoded.CustomerId); 
       localStorage.setItem("CustomerName", decoded.CustomerName); 
-      this.router.navigateByUrl('/customer');
+      
+      const customerId = decoded.CustomerId;
+      this.CustomerService.CheckCustomer(customerId).subscribe({
+        next :(res)=>{
+          if(!res.hasAccount){
+            Swal.fire({
+              title:'No Account found',
+              text:' Craete accounts to securely store money, facilitate transactions, and manage finances more easily.',
+              icon:'info',
+              confirmButtonText:'Create Account'
+            }).then(result=>{
+              if (result.isConfirmed){
+                this.router.navigateByUrl('/account');
+              }
+            });
+
+          }else{
+                this.router.navigateByUrl('/customer');
+          }
+        }
+      })
     },
     error:(error)=>{
       console.log(error);
-      alert(JSON.stringify(error.error));
+      Swal.fire('Login Failed', 'Invalid Creditionals!','error');
     }
     
   })

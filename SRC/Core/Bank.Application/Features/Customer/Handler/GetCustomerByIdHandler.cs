@@ -33,7 +33,7 @@ namespace Bank.Application.Features.Customer.Handler
             return new CustomerDto
             {
                 Id = data.id,
-                AccountNo = accountdetails.AccountNo,
+                //AccountNo = accountdetails.AccountNo != null ? accountdetails.AccountNo : null,
                 Name = data.Name,
                 Email = data.Email,
                 Password=data.Password,

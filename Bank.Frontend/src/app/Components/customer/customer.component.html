@@ -15,7 +15,7 @@
             <th scope="col">Email</th>
             <th scope="col">KeyStatus</th>  
             <th scope="col">Date</th>
-            <th sccope="col" *ngIf="role==='Admin'">Update</th>
+            <th scope="col" *ngIf="role==='Admin'">Update</th>
             <th scope="col"*ngIf="role==='Admin'">Delete</th>
         </tr>
     </thead>
@@ -47,10 +47,10 @@
             </div>
             <div class="modal-body">
                 <div class="modal-body">
-                    <form>
+                    <form #customerForm ="ngForm" (ngSubmit)="onRegister()">
                         <div class="mb-3">
                             <label>Name</label>
-                            <input type="text" [(ngModel)]="regObj.name" name="name" class="form-control" />
+                            <input type="text" [(ngModel)]="regObj.name" name="name" class="form-control" autocomplete="name"/>
                         </div>
 
                         <div class="mb-3">
@@ -64,7 +64,7 @@
 
                         <div class="mb-3">
                             <label>Email</label>
-                            <input type="email" [(ngModel)]="regObj.email" name="email" class="form-control" />
+                            <input type="email" [(ngModel)]="regObj.email" name="email" class="form-control" autocomplete="off"/>
                         </div>
                         <div class="mb-3">
                             <label>Password</label>
