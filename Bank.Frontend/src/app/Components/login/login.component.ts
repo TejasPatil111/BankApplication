@@ -30,10 +30,10 @@ export class LoginComponent {
   private CustomerService :CustomerService, 
 private router:Router){}
 
-ngOnInit(): void {
-  this.loginForm
+// ngOnInit(): void {
+//   this.loginForm
   
-}
+// }
 
   // register data
 regObj : RegisterDto = new RegisterDto();  
