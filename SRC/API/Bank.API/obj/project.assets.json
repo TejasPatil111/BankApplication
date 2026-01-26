@@ -5572,23 +5572,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\API\\Bank.API\\Bank.API.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\API\\Bank.API\\Bank.API.csproj",
       "projectName": "Bank.API",
-      "projectPath": "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\API\\Bank.API\\Bank.API.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\API\\Bank.API\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\API\\Bank.API\\Bank.API.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\API\\Bank.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5603,14 +5603,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\user\\source\\Practise\\Bank\\Bank.Persistance\\Bank.Persistance.csproj": {
-              "projectPath": "C:\\Users\\user\\source\\Practise\\Bank\\Bank.Persistance\\Bank.Persistance.csproj"
+            "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\Bank.Persistance\\Bank.Persistance.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\Bank.Persistance\\Bank.Persistance.csproj"
             },
-            "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\CORE\\Bank.Application\\Bank.Application.csproj": {
-              "projectPath": "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\CORE\\Bank.Application\\Bank.Application.csproj"
+            "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\CORE\\Bank.Application\\Bank.Application.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\CORE\\Bank.Application\\Bank.Application.csproj"
             },
-            "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\Infrastructure\\Bank.Infrastructure\\Bank.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\user\\source\\Practise\\Bank\\SRC\\Infrastructure\\Bank.Infrastructure\\Bank.Infrastructure.csproj"
+            "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\Infrastructure\\Bank.Infrastructure\\Bank.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\PractiseProjects\\Bank_Application\\BankApplication\\SRC\\Infrastructure\\Bank.Infrastructure\\Bank.Infrastructure.csproj"
             }
           }
         }
@@ -5699,7 +5699,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
